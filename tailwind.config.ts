@@ -11,12 +11,22 @@ const config: Config = {
       colors: {
         background: "#111111",
         surface: "#F0EFEB",
+        accent: "#E84020",
+        // Raw token aliases
         "text-primary": "#FFFFFF",
         "text-secondary": "#666666",
         "text-ink": "#111111",
-        accent: "#E84020",
         "border-light": "#000000",
         "border-dark": "rgba(255, 255, 255, 0.12)",
+      },
+      textColor: {
+        primary: "#FFFFFF",
+        secondary: "#666666",
+        ink: "#111111",
+      },
+      borderColor: {
+        light: "#000000",
+        dark: "rgba(255, 255, 255, 0.12)",
       },
       letterSpacing: {
         "tighter-display": "-5.9px",

@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${dmMono.variable}`}>
-      <body className="bg-background text-text-primary font-space antialiased min-h-screen">
+      <body className="bg-background text-primary font-space antialiased min-h-screen">
         {children}
       </body>
     </html>
