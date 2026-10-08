@@ -15,13 +15,13 @@ const revealTransition = {
 };
 
 export function ExpertiseSection({ data = profileData }: ExpertiseSectionProps) {
-  const expertiseItems = data.expertise;
+  const expertiseItems = data?.expertise ?? profileData.expertise;
 
   return (
     <section
       id="expertise"
       aria-label="Product Management Expertise"
-      className="relative w-full bg-background text-primary border-t border-dark py-[100px] px-6 sm:px-10 lg:px-16"
+      className="relative w-full bg-background text-primary border-t border-dark py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
     >
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Section Header */}

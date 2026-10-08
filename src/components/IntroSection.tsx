@@ -15,13 +15,13 @@ const revealTransition = {
 };
 
 export function IntroSection({ data = profileData }: IntroSectionProps) {
-  const statement = data.introStatement;
+  const statement = data?.introStatement ?? profileData.introStatement;
 
   return (
     <section
       id="intro"
       aria-label="Editorial Intro Statement"
-      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 overflow-hidden"
+      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-20"
     >
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Eyebrow in DM Mono */}
