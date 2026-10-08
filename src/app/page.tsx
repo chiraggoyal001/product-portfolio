@@ -3,6 +3,7 @@ import { NavbarCapsule } from '@/components/NavbarCapsule';
 import { HeroSection } from '@/components/HeroSection';
 import { IntroSection } from '@/components/IntroSection';
 import { ExpertiseSection } from '@/components/ExpertiseSection';
+import { AboutSection } from '@/components/AboutSection';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <HeroSection />
         <IntroSection />
         <ExpertiseSection />
+        <AboutSection />
       </main>
     </div>
   );
