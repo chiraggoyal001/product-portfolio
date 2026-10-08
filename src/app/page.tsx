@@ -6,6 +6,8 @@ import { ExpertiseSection } from '@/components/ExpertiseSection';
 import { AboutSection } from '@/components/AboutSection';
 import { CareerTimeline } from '@/components/CareerTimeline';
 import { ProjectsShowcase } from '@/components/ProjectsShowcase';
+import { ContactSection } from '@/components/ContactSection';
+import { FooterMarquee } from '@/components/FooterMarquee';
 
 export default function Home() {
   return (
@@ -18,7 +20,9 @@ export default function Home() {
         <AboutSection />
         <CareerTimeline />
         <ProjectsShowcase />
+        <ContactSection />
       </main>
+      <FooterMarquee />
     </div>
   );
 }

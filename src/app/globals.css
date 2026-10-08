@@ -38,10 +38,25 @@ body {
   }
 }
 
+@keyframes hfMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-scroll-bob {
   animation: scrollBob 2s ease-in-out infinite;
 }
 
 .animate-live-pulse {
   animation: livePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-hf-marquee {
+  display: flex;
+  width: max-content;
+  animation: hfMarquee 30s linear infinite;
 }
