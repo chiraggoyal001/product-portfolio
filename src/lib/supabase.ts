@@ -1,16 +1,25 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { ProfileData, ProjectItem, ExperienceItem } from '@/types/portfolio';
 import { profileData } from '@/data/profileData';
-import { projectsData } from '@/data/projectsData';
+import { projectsData, getFeaturedProjects } from '@/data/projectsData';
 import { careerData } from '@/data/careerData';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const supabase: SupabaseClient | null =
-  supabaseUrl && supabaseAnonKey
-    ? createClient(supabaseUrl, supabaseAnonKey)
-    : null;
+function initSupabase(): SupabaseClient | null {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return null;
+  }
+  try {
+    return createClient(supabaseUrl, supabaseAnonKey);
+  } catch (err) {
+    console.warn('Failed to initialize Supabase client, falling back to static data:', err);
+    return null;
+  }
+}
+
+export const supabase: SupabaseClient | null = initSupabase();
 
 export const isSupabaseConfigured = (): boolean => {
   return supabase !== null;
@@ -19,7 +28,7 @@ export const isSupabaseConfigured = (): boolean => {
 /**
  * Fetch profile data with fallback to static profileData.
  */
-export async function getProfile(): Promise<ProfileData> {
+export async function fetchProfile(): Promise<ProfileData> {
   if (!supabase) {
     return profileData;
   }
@@ -48,7 +57,7 @@ export async function getProfile(): Promise<ProfileData> {
 /**
  * Fetch all projects with fallback to static projectsData.
  */
-export async function getProjects(): Promise<ProjectItem[]> {
+export async function fetchProjects(): Promise<ProjectItem[]> {
   if (!supabase) {
     return projectsData;
   }
@@ -73,9 +82,37 @@ export async function getProjects(): Promise<ProjectItem[]> {
 }
 
 /**
+ * Fetch featured projects with fallback to static getFeaturedProjects().
+ */
+export async function fetchFeaturedProjects(): Promise<ProjectItem[]> {
+  if (!supabase) {
+    return getFeaturedProjects();
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('featured', true);
+
+    if (error || !data || data.length === 0) {
+      if (error) {
+        console.warn('Supabase featured projects query failed, using static fallback:', error.message);
+      }
+      return getFeaturedProjects();
+    }
+
+    return data as ProjectItem[];
+  } catch (err) {
+    console.warn('Supabase featured projects error, using static fallback:', err);
+    return getFeaturedProjects();
+  }
+}
+
+/**
  * Fetch a single project by slug with fallback to static projectsData.
  */
-export async function getProjectBySlug(slug: string): Promise<ProjectItem | undefined> {
+export async function fetchProjectBySlug(slug: string): Promise<ProjectItem | undefined> {
   if (!supabase) {
     return projectsData.find((project) => project.slug === slug);
   }
@@ -104,7 +141,7 @@ export async function getProjectBySlug(slug: string): Promise<ProjectItem | unde
 /**
  * Fetch career timeline with fallback to static careerData.
  */
-export async function getCareerTimeline(): Promise<ExperienceItem[]> {
+export async function fetchCareerTimeline(): Promise<ExperienceItem[]> {
   if (!supabase) {
     return careerData;
   }

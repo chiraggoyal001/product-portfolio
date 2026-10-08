@@ -6,10 +6,11 @@ import { careerData } from '../src/data/careerData';
 import {
   supabase,
   isSupabaseConfigured,
-  getProfile,
-  getProjects,
-  getProjectBySlug as getSupabaseProjectBySlug,
-  getCareerTimeline,
+  fetchProfile,
+  fetchProjects,
+  fetchFeaturedProjects,
+  fetchProjectBySlug,
+  fetchCareerTimeline,
 } from '../src/lib/supabase';
 
 describe('Task 2: Data Models & Modular Content Layer', () => {
@@ -163,37 +164,42 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
   });
 
   describe('Supabase Client & Fallback Layer (src/lib/supabase.ts)', () => {
-    test('gracefully handles missing credentials without crashing', () => {
-      // By default in this test environment without env vars:
+    test('gracefully handles missing credentials without throwing', () => {
       if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
         assert.strictEqual(supabase, null);
         assert.strictEqual(isSupabaseConfigured(), false);
       }
     });
 
-    test('getProfile() falls back smoothly to profileData', async () => {
-      const data = await getProfile();
+    test('fetchProfile() falls back smoothly to profileData', async () => {
+      const data = await fetchProfile();
       assert.strictEqual(data.name, profileData.name);
       assert.strictEqual(data.role, profileData.role);
     });
 
-    test('getProjects() falls back smoothly to projectsData', async () => {
-      const projects = await getProjects();
+    test('fetchProjects() falls back smoothly to projectsData', async () => {
+      const projects = await fetchProjects();
       assert.strictEqual(projects.length, 3);
       assert.strictEqual(projects[0].slug, 'project-nexus-ai');
     });
 
-    test('getProjectBySlug() falls back smoothly to static project', async () => {
-      const project = await getSupabaseProjectBySlug('project-nexus-ai');
+    test('fetchFeaturedProjects() falls back smoothly to getFeaturedProjects()', async () => {
+      const featured = await fetchFeaturedProjects();
+      assert.ok(featured.length > 0);
+      assert.ok(featured.every((p) => p.featured));
+    });
+
+    test('fetchProjectBySlug() falls back smoothly to static project', async () => {
+      const project = await fetchProjectBySlug('project-nexus-ai');
       assert.ok(project);
       assert.strictEqual(project?.slug, 'project-nexus-ai');
 
-      const notFound = await getSupabaseProjectBySlug('non-existent');
+      const notFound = await fetchProjectBySlug('non-existent');
       assert.strictEqual(notFound, undefined);
     });
 
-    test('getCareerTimeline() falls back smoothly to careerData', async () => {
-      const timeline = await getCareerTimeline();
+    test('fetchCareerTimeline() falls back smoothly to careerData', async () => {
+      const timeline = await fetchCareerTimeline();
       assert.strictEqual(timeline.length, 3);
       assert.strictEqual(timeline[0].role, 'Principal Product Manager');
     });
