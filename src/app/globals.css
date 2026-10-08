@@ -60,3 +60,11 @@ body {
   width: max-content;
   animation: hfMarquee 30s linear infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-bob,
+  .animate-live-pulse,
+  .animate-hf-marquee {
+    animation: none;
+  }
+}

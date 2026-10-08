@@ -27,8 +27,8 @@ const revealTransition = {
   ease: [0.16, 1, 0.3, 1],
 };
 
-function getChannelIcon(type: string) {
-  switch (type.toLowerCase()) {
+function getChannelIcon(type?: string) {
+  switch (type?.toLowerCase()) {
     case 'email':
       return Mail;
     case 'linkedin':
@@ -137,8 +137,8 @@ export function ContactSection({
             {/* Technical grid lines */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/[0.03] via-transparent to-transparent pointer-events-none" />
 
-            {/* Center Watermark Text */}
-            <div className="flex flex-col items-center text-center z-0">
+            {/* Center Decorative Watermark Text */}
+            <div className="flex flex-col items-center text-center z-0" aria-hidden="true">
               <span className="font-mono text-2xl sm:text-3xl tracking-[0.3em] text-white/20 uppercase font-light mb-2">
                 Image
               </span>
@@ -152,7 +152,7 @@ export function ContactSection({
               type="button"
               onClick={handleBackToTop}
               aria-label="Back to top"
-              className="absolute bottom-6 left-6 z-10 inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-white font-mono text-xs font-semibold uppercase tracking-wider rounded-card shadow-xl hover:bg-accent/90 active:scale-95 transition-all cursor-pointer group/btn"
+              className="absolute bottom-6 left-6 z-10 inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-white font-mono text-xs font-semibold uppercase tracking-wider rounded-card shadow-xl hover:bg-accent/90 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-all cursor-pointer group/btn"
             >
               <ArrowUp className="w-3.5 h-3.5 group-hover/btn:-translate-y-0.5 transition-transform" />
               <span>Back to top</span>
@@ -170,7 +170,9 @@ export function ContactSection({
             <div className="border-t border-b border-dark divide-y divide-dark">
               {channels.map((channel, idx) => {
                 const IconComponent = getChannelIcon(channel.type);
-                const isExternal = !channel.url.startsWith('mailto:') && !channel.url.startsWith('tel:');
+                const isExternal =
+                  channel.url.startsWith('http://') ||
+                  channel.url.startsWith('https://');
 
                 return (
                   <a
@@ -179,7 +181,7 @@ export function ContactSection({
                     target={isExternal ? '_blank' : undefined}
                     rel={isExternal ? 'noopener noreferrer' : undefined}
                     aria-label={`${channel.name}: ${channel.handle}`}
-                    className="flex items-center justify-between py-5 sm:py-6 px-2 group hover:bg-white/[0.02] transition-colors cursor-pointer"
+                    className="flex items-center justify-between py-5 sm:py-6 px-2 group hover:bg-white/[0.02] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-card transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-4 sm:gap-5">
                       {/* Bordered Square Swatch */}
