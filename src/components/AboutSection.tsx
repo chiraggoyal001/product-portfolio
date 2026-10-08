@@ -34,7 +34,7 @@ function formatBioParagraph(text: string): React.ReactNode {
 
   // Target key PM metrics, scale numbers, and strategic impact terms
   const highlightPattern = /(\$120M\+?|8\+\s+years|zero-to-one|hyper-growth scaling|enterprise AI copilots|99\.98%\s+platform SLAs|99\.98%|2\.4x\s+query acceleration|2\.4x|Fortune 500)/i;
-  const parts = text.split(/(\$120M\+?|8\+\s+years|zero-to-one|hyper-growth scaling|enterprise AI copilots|99\.98%\s+platform SLAs|99\.98%|2\.4x\s+query acceleration|2\.4x|Fortune 500)/gi);
+  const parts = text.split(new RegExp(highlightPattern.source, 'gi'));
 
   return parts.map((part, i) => {
     if (highlightPattern.test(part)) {
@@ -59,6 +59,7 @@ export function AboutSection({
   const credentialCallout = about?.credentialCallout ?? profileData.about.credentialCallout;
   const status = about?.status ?? profileData.about.status;
   const name = data?.name ?? profileData.name;
+  const isAvailable = status?.available ?? true;
 
   const statusLine = [status?.location, status?.text].filter(Boolean).join(' • ');
 
@@ -91,18 +92,21 @@ export function AboutSection({
             transition={revealTransition}
             className="lg:col-span-5 w-full"
           >
-            <div className="relative w-full aspect-[4/5] rounded-card overflow-hidden border border-light bg-black grayscale shadow-lg">
+            {/* Note: Grayscale is applied to inner portrait contents only, so the overlaid vermilion badge is NOT desaturated */}
+            <div className="relative w-full aspect-[4/5] rounded-card overflow-hidden border border-light bg-black shadow-lg">
               {portraitUrl ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   src={portraitUrl}
                   alt={name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center grayscale contrast-110"
                 />
               ) : (
                 /* Stylistic Executive Silhouette Photography Frame */
                 <div
-                  className="relative w-full h-full flex flex-col justify-between p-6 bg-gradient-to-b from-[#1c1c1c] via-[#0f0f0f] to-black"
+                  className="relative w-full h-full flex flex-col justify-between p-6 bg-gradient-to-b from-[#1c1c1c] via-[#0f0f0f] to-black grayscale"
                   aria-label="Executive Portrait Silhouette"
                 >
                   {/* Viewfinder Frame Meta */}
@@ -146,7 +150,7 @@ export function AboutSection({
 
               {/* Overlaid Vermilion Credential Tag at Bottom Edge */}
               <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 z-20">
-                <div className="bg-accent text-white px-3.5 py-2.5 rounded-card inline-flex items-center gap-2 font-mono text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-md">
+                <div className="bg-accent text-white px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-card inline-flex items-center gap-2 font-mono text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider uppercase shadow-md">
                   <span>{credentialTag}</span>
                 </div>
               </div>
@@ -192,8 +196,14 @@ export function AboutSection({
                 className="relative flex h-2.5 w-2.5 items-center justify-center shrink-0"
                 aria-hidden="true"
               >
-                <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent animate-live-pulse" />
+                {isAvailable && (
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
+                )}
+                <span
+                  className={`relative inline-flex h-2.5 w-2.5 rounded-full ${
+                    isAvailable ? 'bg-accent animate-live-pulse' : 'bg-secondary'
+                  }`}
+                />
               </span>
               <span>{statusLine}</span>
             </div>
