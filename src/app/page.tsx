@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavbarCapsule } from '@/components/NavbarCapsule';
 import { HeroSection } from '@/components/HeroSection';
+import { IntroSection } from '@/components/IntroSection';
+import { ExpertiseSection } from '@/components/ExpertiseSection';
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       <NavbarCapsule />
       <main className="flex-1 flex flex-col">
         <HeroSection />
+        <IntroSection />
+        <ExpertiseSection />
       </main>
     </div>
   );
