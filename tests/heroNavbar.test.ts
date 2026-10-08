@@ -38,6 +38,17 @@ describe('Task 3: Floating Navbar Capsule & Hero Screen', () => {
       );
     });
 
+    test('connects to profileData: defaults brandName and computes monogram initials', () => {
+      assert.ok(html.includes(profileData.name), 'Must default brand name to profileData.name');
+      assert.ok(html.includes('ER'), 'Must compute initials ER from Eddy Ready');
+
+      // Test custom brandName computes correct initials
+      const customHtml = renderToStaticMarkup(
+        React.createElement(NavbarCapsule, { brandName: 'Alex Mercer' })
+      );
+      assert.ok(customHtml.includes('AM'), 'Must compute initials AM from Alex Mercer');
+    });
+
     test('renders all 5 navigation links pointing to required section anchors', () => {
       assert.ok(html.includes('href="#about"'), 'Must link to #about');
       assert.ok(html.includes('href="#expertise"'), 'Must link to #expertise');

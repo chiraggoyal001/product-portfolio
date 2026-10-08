@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${dmMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${dmMono.variable} scroll-smooth`}>
       <body className="bg-background text-primary font-space antialiased min-h-screen">
         {children}
       </body>

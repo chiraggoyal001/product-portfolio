@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { profileData } from '@/data/profileData';
 
 export interface NavLinkItem {
   label: string;
@@ -23,13 +24,21 @@ export const navItems: NavLinkItem[] = [
   { label: 'Contact', href: '#contact' },
 ];
 
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 0 || !parts[0]) return 'ER';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 export function NavbarCapsule({
-  brandMonogram = 'ER',
-  brandName = 'Eddy Ready',
+  brandName = profileData.name,
+  brandMonogram,
   ctaText = 'Connect',
   ctaHref = '#contact',
 }: NavbarCapsuleProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const monogram = brandMonogram || getInitials(brandName);
 
   return (
     <header className="fixed top-5 left-0 right-0 z-50 flex flex-col items-center px-4 pointer-events-none">
@@ -49,7 +58,7 @@ export function NavbarCapsule({
           aria-label={`${brandName} home`}
         >
           <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-white/10 text-primary group-hover:bg-accent group-hover:text-white transition-colors">
-            {brandMonogram}
+            {monogram}
           </span>
           <span className="font-space text-xs font-semibold tracking-tight hidden sm:inline text-primary/90 group-hover:text-primary transition-colors">
             {brandName}
