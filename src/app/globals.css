@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #111111;
+  --foreground: #FFFFFF;
+}
+
+body {
+  background-color: #111111;
+  color: #FFFFFF;
+  font-family: var(--font-space-grotesk), sans-serif;
+  overflow-x: hidden;
+}
+
+@keyframes scrollBob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+}
+
+.animate-scroll-bob {
+  animation: scrollBob 2s ease-in-out infinite;
+}
+
+.animate-live-pulse {
+  animation: livePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
