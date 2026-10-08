@@ -8,12 +8,12 @@ import {
   ExternalLink,
   Github,
   FileText,
-  Play,
   ArrowRight,
 } from 'lucide-react';
 import { projectsData } from '@/data/projectsData';
 import { ProjectItem } from '@/types/portfolio';
-import { CaseStudyDrawer, parseVideoEmbedUrl } from '@/components/CaseStudyDrawer';
+import { CaseStudyDrawer } from '@/components/CaseStudyDrawer';
+import { VideoEmbed } from '@/components/VideoEmbed';
 
 export interface ProjectsShowcaseProps {
   projects?: ProjectItem[];
@@ -35,76 +35,17 @@ export function ShowcaseVideoPlayer({
   title: string;
   forcePlaceholder?: boolean;
 }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const embed = parseVideoEmbedUrl(url);
-
-  if (forcePlaceholder || embed.type === 'placeholder' || !url) {
-    return (
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#1c1c1c] via-[#0f0f0f] to-black">
-        <div className="absolute top-4 left-4 right-4 flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider uppercase">
-          <span>{'// EXPERIMENT PREVIEW'}</span>
-          <span>{'1080P // DEMO'}</span>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setIsPlaying(true)}
-          aria-label={`Play ${title} video demonstration`}
-          className="w-16 h-16 rounded-full bg-accent text-white flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-transform group cursor-pointer"
-        >
-          <Play className="w-6 h-6 fill-white ml-0.5 group-hover:scale-110 transition-transform" />
-        </button>
-
-        <span className="mt-4 font-mono text-xs text-secondary uppercase tracking-widest">
-          {isPlaying ? 'Walkthrough Active' : 'Launch Interactive Walkthrough'}
-        </span>
-
-        <div className="absolute top-4 left-4 w-3 h-3 border-t border-l border-white/20 pointer-events-none" />
-        <div className="absolute top-4 right-4 w-3 h-3 border-t border-r border-white/20 pointer-events-none" />
-        <div className="absolute bottom-4 left-4 w-3 h-3 border-b border-l border-white/20 pointer-events-none" />
-        <div className="absolute bottom-4 right-4 w-3 h-3 border-b border-r border-white/20 pointer-events-none" />
-      </div>
-    );
-  }
-
-  if (embed.type === 'youtube' && embed.src) {
-    return (
-      <iframe
-        src={embed.src}
-        title={`${title} video demonstration`}
-        className="w-full h-full border-0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    );
-  }
-
-  if (embed.type === 'loom' && embed.src) {
-    return (
-      <iframe
-        src={embed.src}
-        title={`${title} Loom walkthrough`}
-        className="w-full h-full border-0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    );
-  }
-
-  if (embed.type === 'video' && embed.src) {
-    return (
-      <video
-        src={embed.src}
-        controls
-        className="w-full h-full object-cover"
-        title={`${title} video demonstration`}
-      >
-        Your browser does not support the video tag.
-      </video>
-    );
-  }
-
-  return null;
+  return (
+    <VideoEmbed
+      url={url}
+      title={title}
+      forcePlaceholder={forcePlaceholder}
+      eyebrowLeft="// EXPERIMENT PREVIEW"
+      eyebrowRight="1080P // DEMO"
+      actionLabel="Launch Interactive Walkthrough"
+      buttonSize="lg"
+    />
+  );
 }
 
 export function ProjectsShowcase({
@@ -323,6 +264,7 @@ export function ProjectsShowcase({
               <button
                 key={project.id || project.slug || idx}
                 type="button"
+                aria-pressed={isSelected}
                 onClick={() => setSelectedIndex(idx)}
                 className={`text-left p-5 rounded-card border transition-all duration-200 cursor-pointer ${
                   isSelected
@@ -340,7 +282,7 @@ export function ProjectsShowcase({
                   </span>
                   {isSelected && (
                     <span className="font-mono text-[10px] uppercase text-accent tracking-wider font-semibold">
-                      ● CURRENT
+                      • CURRENT
                     </span>
                   )}
                 </div>
