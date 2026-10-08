@@ -150,19 +150,16 @@ export function CaseStudyDrawer({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || !project) {
-    return null;
-  }
-
-  const { caseStudy } = project;
-  const videoUrl = caseStudy.videoUrl || project.videoUrl;
-  const githubUrl = caseStudy.githubUrl || project.githubUrl;
-  const liveUrl = caseStudy.liveUrl || project.liveUrl;
-  const prdDocUrl = caseStudy.prdDocUrl || project.prdDocUrl;
+  const caseStudy = project?.caseStudy;
+  const videoUrl = caseStudy?.videoUrl || project?.videoUrl;
+  const githubUrl = caseStudy?.githubUrl || project?.githubUrl;
+  const liveUrl = caseStudy?.liveUrl || project?.liveUrl;
+  const prdDocUrl = caseStudy?.prdDocUrl || project?.prdDocUrl;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex justify-end">
+      {isOpen && project && caseStudy && (
+        <div className="fixed inset-0 z-50 flex justify-end">
         {/* Dark Backdrop with Blur */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -440,8 +437,9 @@ export function CaseStudyDrawer({
           </div>
         </motion.aside>
       </div>
-    </AnimatePresence>
-  );
+    )}
+  </AnimatePresence>
+);
 }
 
 export default CaseStudyDrawer;
