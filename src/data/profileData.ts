@@ -1,8 +1,8 @@
 import { ProfileData } from '@/types/portfolio';
 
 export const profileData: ProfileData = {
-  name: 'Eddy Ready',
-  role: 'Principal Product Manager',
+  name: 'Chirag Goyal',
+  role: 'Product Manager',
   headline: 'Leading AI/ML Products, Enterprise Platforms & High-Velocity Growth Systems',
   introStatement: {
     whiteTextPre: 'I engineer ',
@@ -11,59 +11,49 @@ export const profileData: ProfileData = {
     accentText2: 'compounding enterprise value',
     whiteTextPost: ' at global scale.',
   },
-  honors: [
-    'Top PM Award',
-    'Patent Holder',
-    'Featured Speaker',
-  ],
+  honors: [],
   about: {
     headline: 'Architecting zero-to-one breakthroughs and scaling category-defining platforms.',
     bioParagraphs: [
       'Principal Product Manager with 8+ years steering cross-functional engineering, design, and data science teams from zero-to-one concept through hyper-growth scaling. Specializing in enterprise AI copilots, real-time data streaming architectures, and algorithmic workflow automation.',
-      'Proven track record generating over $120M in incremental enterprise pipeline and ARR across high-growth venture-backed companies and established tech enterprises. Champion of data-informed conviction, rapid experimentation cadence, and deep customer empathy.',
-      'Passionate about the intersection of distributed systems and intuitive consumer-grade UX. Led technical product roadmaps delivering 99.98% platform SLAs, 2.4x query acceleration, and multi-tenant AI pipelines trusted by Fortune 500 enterprises.',
+      'Proven track record generating over $120M in incremental enterprise pipeline and ARR across high-growth venture-backed companies and established tech teams. Champion of data-informed conviction, rapid experimentation cadence, and deep customer empathy.',
+      'Passionate about the intersection of distributed systems and intuitive consumer-grade UX. Led technical product roadmaps delivering high platform reliability, low-latency performance, and multi-tenant AI pipelines.',
     ],
     credentialCallout: {
       stat: '$120M+',
       label: 'ENTERPRISE VALUE CREATED',
-      subtext: 'Across AI/ML, data infrastructure, and FinTech platforms',
+      subtext: 'Specializing in AI/ML systems, data platforms, and scalable digital products',
     },
     status: {
       available: true,
-      text: 'Open to Advisory & Leadership',
-      location: 'San Francisco / Remote',
+      text: 'Open to Opportunities',
+      location: 'Delhi, India',
     },
   },
   directChannels: [
     {
       name: 'Email',
-      url: 'mailto:eddy@example.com',
-      handle: 'eddy@example.com',
+      url: 'mailto:goyalchirag721@gmail.com',
+      handle: 'goyalchirag721@gmail.com',
       type: 'email',
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/eddyready',
-      handle: 'linkedin.com/in/eddyready',
+      url: 'https://www.linkedin.com/in/chirag-goyal-9858101b0',
+      handle: 'linkedin.com/in/chirag-goyal-9858101b0',
       type: 'linkedin',
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/eddyready',
-      handle: 'github.com/eddyready',
+      url: 'https://github.com/chiraggoyal001',
+      handle: 'github.com/chiraggoyal001',
       type: 'github',
     },
     {
       name: 'Phone',
-      url: 'tel:+14155550199',
-      handle: '+1 (415) 555-0199',
+      url: 'tel:+919871963032',
+      handle: '+91 98719 63032',
       type: 'phone',
-    },
-    {
-      name: 'Calendar',
-      url: 'https://cal.com/eddyready',
-      handle: 'cal.com/eddyready',
-      type: 'calendar',
     },
   ],
   expertise: [

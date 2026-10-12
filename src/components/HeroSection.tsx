@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowDown, Linkedin, Mail, Phone, Award } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowDown, Linkedin, Mail, Phone, Github } from 'lucide-react';
 import { profileData } from '@/data/profileData';
 import { ProfileData } from '@/types/portfolio';
 
@@ -16,38 +16,9 @@ const revealTransition = {
 };
 
 export function HeroSection({ data = profileData }: HeroSectionProps) {
-  const [isHonorsOpen, setIsHonorsOpen] = useState(false);
-  const honorsRef = useRef<HTMLElement>(null);
-
-  // Keyboard Escape listener & Click-outside dismissal for Honors drawer
-  useEffect(() => {
-    if (!isHonorsOpen) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsHonorsOpen(false);
-      }
-    };
-
-    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (honorsRef.current && !honorsRef.current.contains(e.target as Node)) {
-        setIsHonorsOpen(false);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [isHonorsOpen]);
-
   const linkedinChannel = data.directChannels.find((c) => c.type === 'linkedin');
   const emailChannel = data.directChannels.find((c) => c.type === 'email');
+  const githubChannel = data.directChannels.find((c) => c.type === 'github');
   const phoneOrXChannel = data.directChannels.find(
     (c) => c.type === 'phone' || c.type === 'x'
   );
@@ -75,73 +46,6 @@ export function HeroSection({ data = profileData }: HeroSectionProps) {
         }}
         aria-hidden="true"
       />
-
-      {/* Backdrop overlay for Honors drawer tap dismissal on mobile */}
-      <AnimatePresence>
-        {isHonorsOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setIsHonorsOpen(false)}
-            className="fixed inset-0 z-30 bg-black/50 md:hidden"
-            aria-hidden="true"
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Persistent Right-Pinned Vertical HONORS Badge */}
-      <aside
-        ref={honorsRef}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex items-center"
-        onMouseEnter={() => setIsHonorsOpen(true)}
-        onMouseLeave={() => setIsHonorsOpen(false)}
-        aria-label="Honors & Distinctions"
-      >
-        {/* Honors Slide-Out Drawer / Tooltip */}
-        <div
-          className={`transition-all duration-300 ease-out origin-right overflow-hidden ${
-            isHonorsOpen
-              ? 'opacity-100 translate-x-0 max-w-[280px] pointer-events-auto'
-              : 'opacity-0 translate-x-4 max-w-0 pointer-events-none'
-          }`}
-        >
-          <div
-            className="rounded-none border-l border-y border-dark p-4 shadow-2xl backdrop-blur-md min-w-[220px]"
-            style={{ backgroundColor: 'rgba(10, 10, 10, 0.95)' }}
-          >
-            <div className="flex items-center gap-1.5 font-mono text-[11px] text-accent uppercase tracking-widest mb-3">
-              <Award size={13} />
-              <span>{'// HONORS & AWARDS'}</span>
-            </div>
-            <ul className="space-y-2.5">
-              {data.honors.map((honor, idx) => (
-                <li
-                  key={idx}
-                  className="font-space text-xs text-white/90 flex items-start gap-2"
-                >
-                  <span className="font-mono text-[10px] text-accent pt-0.5">
-                    {`0${idx + 1}`}
-                  </span>
-                  <span>{honor}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Pinned Tab */}
-        <button
-          type="button"
-          onClick={() => setIsHonorsOpen(!isHonorsOpen)}
-          className="bg-[#000000] text-white font-mono text-[11px] tracking-widest uppercase border-l border-y border-dark rounded-none py-4 px-2 hover:bg-neutral-900 transition-colors cursor-pointer select-none shadow-xl flex items-center justify-center [writing-mode:vertical-rl] rotate-180"
-          aria-expanded={isHonorsOpen}
-          aria-label="Toggle honors panel"
-        >
-          <span className="tracking-[0.2em] font-medium">HONORS</span>
-        </button>
-      </aside>
 
       {/* Main Hero Content Area */}
       <div className="relative z-10 max-w-[1200px] w-full mx-auto my-auto flex flex-col justify-center">
@@ -217,45 +121,68 @@ export function HeroSection({ data = profileData }: HeroSectionProps) {
           aria-label="Direct Social Channels"
         >
           {/* LinkedIn */}
-          <a
-            href={linkedinChannel?.url || 'https://linkedin.com/in/eddyready'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
-            aria-label={`${data.name} LinkedIn profile`}
-          >
-            <Linkedin
-              size={15}
-              className="text-white/60 group-hover:text-accent transition-colors"
-            />
-            <span className="font-space text-xs tracking-wide">LinkedIn</span>
-          </a>
+          {linkedinChannel && (
+            <a
+              href={linkedinChannel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
+              aria-label={`${data.name} LinkedIn profile`}
+            >
+              <Linkedin
+                size={15}
+                className="text-white/60 group-hover:text-accent transition-colors"
+              />
+              <span className="font-space text-xs tracking-wide">LinkedIn</span>
+            </a>
+          )}
 
           {/* Email */}
-          <a
-            href={emailChannel?.url || 'mailto:eddy@example.com'}
-            className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
-            aria-label={`${data.name} email inquiry`}
-          >
-            <Mail
-              size={15}
-              className="text-white/60 group-hover:text-accent transition-colors"
-            />
-            <span className="font-space text-xs tracking-wide">Email</span>
-          </a>
+          {emailChannel && (
+            <a
+              href={emailChannel.url}
+              className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
+              aria-label={`${data.name} email inquiry`}
+            >
+              <Mail
+                size={15}
+                className="text-white/60 group-hover:text-accent transition-colors"
+              />
+              <span className="font-space text-xs tracking-wide">Email</span>
+            </a>
+          )}
 
-          {/* Phone / X */}
-          <a
-            href={phoneOrXChannel?.url || 'tel:+14155550199'}
-            className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
-            aria-label={`${data.name} ${phoneOrXLabel} contact`}
-          >
-            <Phone
-              size={15}
-              className="text-white/60 group-hover:text-accent transition-colors"
-            />
-            <span className="font-space text-xs tracking-wide">{phoneOrXLabel}</span>
-          </a>
+          {/* GitHub */}
+          {githubChannel && (
+            <a
+              href={githubChannel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
+              aria-label={`${data.name} GitHub profile`}
+            >
+              <Github
+                size={15}
+                className="text-white/60 group-hover:text-accent transition-colors"
+              />
+              <span className="font-space text-xs tracking-wide">GitHub</span>
+            </a>
+          )}
+
+          {/* Phone */}
+          {phoneOrXChannel && (
+            <a
+              href={phoneOrXChannel.url}
+              className="inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group"
+              aria-label={`${data.name} ${phoneOrXLabel} contact`}
+            >
+              <Phone
+                size={15}
+                className="text-white/60 group-hover:text-accent transition-colors"
+              />
+              <span className="font-space text-xs tracking-wide">{phoneOrXLabel}</span>
+            </a>
+          )}
         </motion.div>
 
         {/* Centered Scroll Indicator */}

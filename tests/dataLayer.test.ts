@@ -30,10 +30,8 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
       assert.ok(introStatement.whiteTextPost.length > 0);
     });
 
-    test('honors include required awards and distinctions', () => {
-      assert.ok(profileData.honors.includes('Top PM Award'));
-      assert.ok(profileData.honors.includes('Patent Holder'));
-      assert.ok(profileData.honors.includes('Featured Speaker'));
+    test('honors is an array', () => {
+      assert.ok(Array.isArray(profileData.honors));
     });
 
     test('about section includes headline, bio paragraphs, credential callout, and status', () => {
@@ -42,17 +40,16 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
       assert.ok(profileData.about.credentialCallout.stat.length > 0);
       assert.ok(profileData.about.credentialCallout.label.length > 0);
       assert.strictEqual(profileData.about.status.available, true);
-      assert.strictEqual(profileData.about.status.text, 'Open to Advisory & Leadership');
-      assert.strictEqual(profileData.about.status.location, 'San Francisco / Remote');
+      assert.strictEqual(profileData.about.status.location, 'Delhi, India');
     });
 
-    test('direct channels include Email, LinkedIn, GitHub, Phone, and Calendar', () => {
+    test('direct channels include Email, LinkedIn, GitHub, and Phone (no calendar)', () => {
       const types = profileData.directChannels.map((c) => c.type);
       assert.ok(types.includes('email'));
       assert.ok(types.includes('linkedin'));
       assert.ok(types.includes('github'));
       assert.ok(types.includes('phone'));
-      assert.ok(types.includes('calendar'));
+      assert.ok(!types.includes('calendar'));
     });
 
     test('contains 6 core expertise disciplines with 2-digit indices', () => {

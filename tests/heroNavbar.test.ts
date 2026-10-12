@@ -33,14 +33,14 @@ describe('Task 3: Floating Navbar Capsule & Hero Screen', () => {
 
     test('renders brand monogram or logo mark on the left', () => {
       assert.ok(
-        html.includes('ER') || html.includes('Eddy Ready'),
+        html.includes('CG') || html.includes('Chirag Goyal'),
         'Must contain brand monogram or name'
       );
     });
 
     test('connects to profileData: defaults brandName and computes monogram initials', () => {
       assert.ok(html.includes(profileData.name), 'Must default brand name to profileData.name');
-      assert.ok(html.includes('ER'), 'Must compute initials ER from Eddy Ready');
+      assert.ok(html.includes('CG'), 'Must compute initials CG from Chirag Goyal');
 
       // Test custom brandName computes correct initials
       const customHtml = renderToStaticMarkup(
@@ -90,19 +90,9 @@ describe('Task 3: Floating Navbar Capsule & Hero Screen', () => {
   describe('HeroSection component (src/components/HeroSection.tsx)', () => {
     const html = renderToStaticMarkup(React.createElement(HeroSection));
 
-    test('renders vertical HONORS badge pinned to right edge with 0px radius', () => {
-      assert.ok(html.includes('HONORS'), 'Must render HONORS badge label');
-      assert.ok(
-        html.includes('rounded-none') || html.includes('rounded-0') || html.includes('0px'),
-        'Honors badge must have 0px radius'
-      );
-      assert.ok(
-        html.includes('font-mono'),
-        'Honors badge must use DM Mono font'
-      );
-      profileData.honors.forEach((honor) => {
-        assert.ok(html.includes(honor), `Must include honor: ${honor}`);
-      });
+    test('does not render vertical HONORS badge when honors are empty', () => {
+      assert.ok(!html.includes('HONORS'), 'Must not render HONORS badge');
+      assert.ok(!html.includes('// HONORS & AWARDS'), 'Must not render honors drawer');
     });
 
     test('renders unbounded lower-left social channels (LinkedIn, Email, Phone) with white text and no card', () => {
@@ -169,8 +159,8 @@ describe('Task 3: Floating Navbar Capsule & Hero Screen', () => {
 
     test('mounts NavbarCapsule and HeroSection', () => {
       assert.ok(html.includes('max-w-[650px]'), 'Page must mount NavbarCapsule');
-      assert.ok(html.includes('HONORS'), 'Page must mount HeroSection with honors');
       assert.ok(html.includes(profileData.name), 'Page must mount HeroSection with name');
+      assert.ok(!html.includes('HONORS'), 'Honors badge must not be present');
     });
   });
 });
