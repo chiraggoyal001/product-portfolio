@@ -39,8 +39,19 @@ export function NavbarCapsule({
   ctaHref = '#contact',
 }: NavbarCapsuleProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const monogram = brandMonogram || getInitials(brandName);
   const navRef = useRef<HTMLElement>(null);
+
+  // Scroll listener to strengthen glass opacity and contrast when scrolling over light sections
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Keyboard Escape listener & Click-outside dismissal
   useEffect(() => {
@@ -89,9 +100,15 @@ export function NavbarCapsule({
       <header className="fixed top-5 left-0 right-0 z-50 flex flex-col items-center px-4 pointer-events-none">
         <nav
           ref={navRef}
-          className="pointer-events-auto relative flex items-center justify-between w-full max-w-[650px] h-[46px] px-3.5 sm:px-4 rounded-pill border border-dark transition-all duration-300 shadow-lg"
+          className={`pointer-events-auto relative flex items-center justify-between w-full max-w-[650px] h-[46px] px-3.5 sm:px-4 rounded-pill border transition-all duration-300 ${
+            isScrolled
+              ? 'border-white/20 shadow-[0_12px_36px_rgba(0,0,0,0.65)]'
+              : 'border-dark shadow-lg'
+          }`}
           style={{
-            backgroundColor: 'rgba(17, 17, 17, 0.55)',
+            backgroundColor: isScrolled
+              ? 'rgba(17, 17, 17, 0.92)'
+              : 'rgba(17, 17, 17, 0.82)',
             backdropFilter: 'blur(20px) saturate(1.4)',
             WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
           }}
@@ -106,18 +123,18 @@ export function NavbarCapsule({
             <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-white/10 text-primary group-hover:bg-accent group-hover:text-white transition-colors">
               {monogram}
             </span>
-            <span className="font-space text-xs font-semibold tracking-tight hidden sm:inline text-primary/90 group-hover:text-primary transition-colors">
+            <span className="font-space text-xs font-semibold tracking-tight hidden sm:inline text-white/90 group-hover:text-white transition-colors">
               {brandName}
             </span>
           </a>
 
-          {/* Desktop 5 Navigation Links */}
+          {/* Desktop 5 Navigation Links - High Contrast for legibility across all backgrounds */}
           <div className="hidden md:flex items-center gap-5">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="font-space text-[13px] text-secondary hover:text-primary transition-colors font-medium tracking-tight"
+                className="font-space text-[13px] text-white/80 hover:text-white transition-colors font-medium tracking-tight"
               >
                 {item.label}
               </a>
@@ -138,7 +155,7 @@ export function NavbarCapsule({
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden flex items-center justify-center w-[29px] h-[29px] text-secondary hover:text-primary rounded-pill border border-dark bg-white/5 transition-colors focus:outline-none"
+              className="md:hidden flex items-center justify-center w-[29px] h-[29px] text-white/80 hover:text-white rounded-pill border border-dark bg-white/5 transition-colors focus:outline-none"
               aria-label={isMobileMenuOpen ? 'Close Menu' : 'Open Menu'}
               aria-expanded={isMobileMenuOpen}
             >
@@ -167,10 +184,10 @@ export function NavbarCapsule({
                   key={item.label}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-space text-sm text-secondary hover:text-primary transition-colors py-1.5 px-2 rounded hover:bg-white/5 flex items-center justify-between"
+                  className="font-space text-sm text-white/85 hover:text-white transition-colors py-1.5 px-2 rounded hover:bg-white/5 flex items-center justify-between"
                 >
                   <span>{item.label}</span>
-                  <span className="font-mono text-xs text-secondary/60">→</span>
+                  <span className="font-mono text-xs text-white/50">→</span>
                 </a>
               ))}
             </motion.div>
