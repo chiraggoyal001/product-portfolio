@@ -30,18 +30,30 @@ describe('Task 7: Live Experiment / Project Showcase & Case Study Drawer', () =>
   describe('ProjectsShowcase component (src/components/ProjectsShowcase.tsx)', () => {
     const html = renderToStaticMarkup(React.createElement(ProjectsShowcase));
 
-    test('renders full-width band on #111111 with py-[100px] padding and max-w-[1200px] container', () => {
+    test('renders full-width band on #111111 with pb-[100px] padding and max-w-[1200px] container', () => {
       assert.ok(
         html.includes('bg-background') || html.includes('#111111'),
         'Must feature dark background (#111111 / bg-background)'
       );
       assert.ok(
-        html.includes('py-[100px]'),
-        'Must maintain section padding of py-[100px]'
+        html.includes('pb-[100px]'),
+        'Must maintain section padding of pb-[100px]'
+      );
+      assert.ok(
+        html.includes('pt-14') || html.includes('pt-16'),
+        'Must maintain tightened top padding for section transition'
       );
       assert.ok(
         html.includes('max-w-[1200px]'),
         'Must constrain container to max-w-[1200px]'
+      );
+    });
+
+    test('renders section title in Space Grotesk headline-md (44px, bold, tracking -1.8px, text-white)', () => {
+      assert.ok(
+        html.includes('Featured Products &amp; Experiments') ||
+          html.includes('Featured Products & Experiments'),
+        'Must render section title in header'
       );
     });
 

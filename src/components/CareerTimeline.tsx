@@ -27,7 +27,7 @@ export function CareerTimeline({
     <section
       id="career"
       aria-label="Career & Impact Timeline"
-      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
+      className="relative w-full bg-background text-primary pt-[100px] pb-14 md:pb-16 px-6 sm:px-10 lg:px-16 scroll-mt-20"
     >
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Section Header */}

@@ -50,6 +50,7 @@ export function ShowcaseVideoPlayer({
 
 export function ProjectsShowcase({
   projects = projectsData,
+  title = 'Featured Products & Experiments',
   eyebrow = 'EXPERIMENTS & PRODUCTS',
 }: ProjectsShowcaseProps) {
   const projectList = projects?.length ? projects : projectsData;
@@ -80,25 +81,38 @@ export function ProjectsShowcase({
     <section
       id="projects"
       aria-label="Projects & Experiments Showcase"
-      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
+      className="relative w-full bg-background text-primary pt-14 md:pt-16 pb-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
     >
       <div className="max-w-[1200px] mx-auto w-full">
-        {/* Top Row: Eyebrow on left; Numeric pagination with Prev/Next controls on right */}
-        <div className="flex items-center justify-between border-b border-dark pb-6 mb-12 md:mb-16">
-          {/* Eyebrow in DM Mono */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={revealTransition}
-            className="font-mono text-xs sm:text-sm text-secondary uppercase tracking-[0.1em] flex items-center gap-2"
-          >
-            <span className="text-accent">{'//'}</span>
-            <span>{eyebrow}</span>
-          </motion.div>
+        {/* Section Header: Eyebrow + Section Title on left; Numeric pagination with Prev/Next controls on right */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-dark pb-8 mb-12 md:mb-16">
+          <div>
+            {/* Eyebrow in DM Mono */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={revealTransition}
+              className="font-mono text-xs sm:text-sm text-secondary uppercase tracking-[0.1em] mb-4 flex items-center gap-2"
+            >
+              <span className="text-accent">{'//'}</span>
+              <span>{eyebrow}</span>
+            </motion.div>
+
+            {/* Section Heading in Space Grotesk headline-md */}
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ ...revealTransition, delay: 0.1 }}
+              className="font-space font-bold text-3xl sm:text-4xl lg:text-[44px] leading-[1.1] tracking-tighter-headline text-white"
+            >
+              {title}
+            </motion.h2>
+          </div>
 
           {/* Numeric Pagination (e.g. 01 / 03) with Prev/Next Controls */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0 pb-1">
             <span
               className="font-mono text-xs sm:text-sm text-secondary tracking-widest select-none"
               aria-label={`Project ${paginationText}`}
@@ -146,9 +160,9 @@ export function ProjectsShowcase({
             </div>
 
             {/* Title in Space Grotesk headline-md (44px, bold, tracking -1.8px, text-white) */}
-            <h2 className="font-space font-bold text-3xl sm:text-4xl lg:text-[44px] leading-[1.1] tracking-tighter-headline text-white mb-4">
+            <h3 className="font-space font-bold text-3xl sm:text-4xl lg:text-[44px] leading-[1.1] tracking-tighter-headline text-white mb-4">
               {currentProject.title}
-            </h2>
+            </h3>
 
             {/* Subtitle / Pitch Statement */}
             <p className="font-space text-base sm:text-lg text-white/85 leading-relaxed mb-6">
