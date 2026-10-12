@@ -15,18 +15,14 @@ describe('Task 6: Career & Impact Timeline', () => {
   describe('CareerTimeline component (src/components/CareerTimeline.tsx)', () => {
     const html = renderToStaticMarkup(React.createElement(CareerTimeline));
 
-    test('renders full-width band on #111111 with pt-[100px] padding and max-w-[1200px] container', () => {
+    test('renders full-width band on #111111 with py-[100px] padding and max-w-[1200px] container', () => {
       assert.ok(
         html.includes('bg-background') || html.includes('#111111'),
         'Must feature dark background (#111111 / bg-background)'
       );
       assert.ok(
-        html.includes('pt-[100px]'),
-        'Must maintain section padding of pt-[100px]'
-      );
-      assert.ok(
-        html.includes('pb-14') || html.includes('pb-16'),
-        'Must maintain tightened bottom padding for section transition'
+        html.includes('py-[100px]'),
+        'Must maintain section padding of py-[100px]'
       );
       assert.ok(
         html.includes('max-w-[1200px]'),

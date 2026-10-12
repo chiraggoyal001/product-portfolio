@@ -81,7 +81,7 @@ export function ProjectsShowcase({
     <section
       id="projects"
       aria-label="Projects & Experiments Showcase"
-      className="relative w-full bg-background text-primary pt-14 md:pt-16 pb-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
+      className="relative w-full bg-background text-primary border-t border-dark py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
     >
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Section Header: Eyebrow + Section Title on left; Numeric pagination with Prev/Next controls on right */}

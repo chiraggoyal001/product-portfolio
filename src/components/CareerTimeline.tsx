@@ -27,7 +27,7 @@ export function CareerTimeline({
     <section
       id="career"
       aria-label="Career & Impact Timeline"
-      className="relative w-full bg-background text-primary pt-[100px] pb-14 md:pb-16 px-6 sm:px-10 lg:px-16 scroll-mt-20"
+      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
     >
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Section Header */}
@@ -63,7 +63,9 @@ export function CareerTimeline({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ ...revealTransition, delay: idx * 0.1 }}
-              className="border-b border-dark py-12 md:py-16"
+              className={`${
+                idx < timelineItems.length - 1 ? 'border-b border-dark' : ''
+              } py-12 md:py-16`}
             >
               {/* Entry Header: Role, Organization, Location, Dates */}
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
