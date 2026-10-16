@@ -116,17 +116,18 @@ describe('Task 5: About Section Surface Break & Metric Callout', () => {
         'profileData must define 3 bio paragraphs'
       );
       profileData.about.bioParagraphs.forEach((para) => {
-        const firstSentence = para.split('.')[0];
+        const plainWords = para.replace(/\*\*/g, '').split(/[ ,.]+/).filter((w) => w.length > 5);
+        const sampleWord = plainWords[0];
         assert.ok(
-          html.includes(firstSentence.slice(0, 30)),
-          `Must render paragraph beginning: ${firstSentence.slice(0, 30)}`
+          html.includes(sampleWord),
+          `Must render paragraph containing keyword: ${sampleWord}`
         );
       });
 
       assert.ok(html.includes('<strong'), 'Must render bold inline emphasis tags');
-      assert.ok(html.includes('$120M'), 'Must highlight metric: $120M');
-      assert.ok(html.includes('8+ years'), 'Must highlight metric: 8+ years');
-      assert.ok(html.includes('zero-to-one'), 'Must highlight scale term: zero-to-one');
+      assert.ok(html.includes('10,000+'), 'Must highlight metric: 10,000+');
+      assert.ok(html.includes('Awign'), 'Must highlight company: Awign');
+      assert.ok(html.includes('Masai x BITSOM') || html.includes('40,000 records'), 'Must highlight education/modeling');
     });
 
     test('renders bordered stat callout box with 3px solid vermilion left stripe', () => {

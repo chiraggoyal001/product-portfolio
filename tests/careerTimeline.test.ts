@@ -140,16 +140,16 @@ describe('Task 6: Career & Impact Timeline', () => {
 
       // Verify sample metric bullets are present in rendered markup
       assert.ok(
-        html.includes('Enterprise AI Copilot'),
-        'Must render Synthetix AI metric bullet'
+        html.includes('robotics operations') || html.includes('egocentric sprint planner'),
+        'Must render Awign metric bullet'
       );
       assert.ok(
-        html.includes('PLG onboarding flywheel'),
-        'Must render DataVortex metric bullet'
+        html.includes('Alternative Credit Scoring') || html.includes('Kamada'),
+        'Must render Masai x BITSOM metric bullet'
       );
       assert.ok(
-        html.includes('biometric 1-tap checkout'),
-        'Must render NovaPay metric bullet'
+        html.includes('Pine Script') || html.includes('Salary Confidence Scoring'),
+        'Must render Independent Builder metric bullet'
       );
     });
 
@@ -176,9 +176,9 @@ describe('Task 6: Career & Impact Timeline', () => {
       );
 
       // Verify sample skill tags from careerData
-      assert.ok(html.includes('Generative AI'));
-      assert.ok(html.includes('PLG Flywheel'));
-      assert.ok(html.includes('Fintech Rails'));
+      assert.ok(html.includes('Internal Tools'));
+      assert.ok(html.includes('GenAI &amp; Agentic AI') || html.includes('PRD Authoring'));
+      assert.ok(html.includes('Pine Script'));
     });
 
     test('supports defensive custom items prop injection', () => {

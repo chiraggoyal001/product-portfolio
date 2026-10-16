@@ -33,7 +33,7 @@ function formatBioParagraph(text: string): React.ReactNode {
   }
 
   // Target key PM metrics, scale numbers, and strategic impact terms
-  const highlightPattern = /(\$120M\+?|8\+\s+years|zero-to-one|hyper-growth scaling|enterprise AI copilots|99\.98%\s+platform SLAs|99\.98%|2\.4x\s+query acceleration|2\.4x|Fortune 500)/i;
+  const highlightPattern = /(10,000\+?|40,000\s+records|Awign|Masai\s+x\s+BITSOM|AI-enabled internal tools|robotics operations|Whimsical\/Miro|GenAI\s+and\s+Agentic\s+AI|zero-to-one|rapid prototyping)/i;
   const parts = text.split(new RegExp(highlightPattern.source, 'gi'));
 
   return parts.map((part, i) => {

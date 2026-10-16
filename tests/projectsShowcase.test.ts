@@ -93,10 +93,10 @@ describe('Task 7: Live Experiment / Project Showcase & Case Study Drawer', () =>
       );
     });
 
-    test('renders numeric pagination in 01 / 03 format with Prev and Next controls on right', () => {
+    test('renders numeric pagination in 01 / 05 format with Prev and Next controls on right', () => {
       assert.ok(
-        html.includes('01 / 03'),
-        'Must render pagination in 01 / 03 format'
+        html.includes('01 / 05'),
+        'Must render pagination in 01 / 05 format'
       );
       assert.ok(
         html.includes('aria-label="Previous project"'),
@@ -108,7 +108,7 @@ describe('Task 7: Live Experiment / Project Showcase & Case Study Drawer', () =>
       );
     });
 
-    test('renders currently selected project (defaults to first project Nexus AI)', () => {
+    test('renders currently selected project (defaults to first project Kamada)', () => {
       const firstProject = projectsData[0];
       assert.ok(
         html.includes(escapeHtml(firstProject.title)),
@@ -162,7 +162,7 @@ describe('Task 7: Live Experiment / Project Showcase & Case Study Drawer', () =>
       );
     });
 
-    test('renders key metric badges row with quantified impact (+44% ARR Growth, etc.)', () => {
+    test('renders key metric badges row with quantified impact (4 Members, 100% Mapped, etc.)', () => {
       const firstProject = projectsData[0];
       firstProject.metrics.forEach((metric) => {
         assert.ok(
@@ -175,12 +175,12 @@ describe('Task 7: Live Experiment / Project Showcase & Case Study Drawer', () =>
         );
       });
       assert.ok(
-        html.includes('+44%'),
-        'Must render +44% quantified metric value'
+        html.includes('4 Members'),
+        'Must render 4 Members quantified metric value'
       );
       assert.ok(
-        html.includes('ARR Growth'),
-        'Must render ARR Growth metric label'
+        html.includes('Capstone Squad'),
+        'Must render Capstone Squad metric label'
       );
     });
 

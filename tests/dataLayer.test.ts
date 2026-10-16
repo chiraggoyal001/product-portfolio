@@ -73,39 +73,41 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
   });
 
   describe('Projects Data (src/data/projectsData.ts)', () => {
-    test('contains 3 high-caliber PM showcase projects', () => {
-      assert.strictEqual(projectsData.length, 3);
+    test('contains 5 high-caliber PM showcase projects', () => {
+      assert.strictEqual(projectsData.length, 5);
       const slugs = projectsData.map((p) => p.slug);
-      assert.ok(slugs.includes('project-nexus-ai'));
-      assert.ok(slugs.includes('project-pulse-analytics'));
-      assert.ok(slugs.includes('project-hyperion-mobile'));
+      assert.ok(slugs.includes('project-kamada-finlit'));
+      assert.ok(slugs.includes('project-alt-credit-scoring'));
+      assert.ok(slugs.includes('project-salary-confidence'));
+      assert.ok(slugs.includes('project-floro-redesign'));
+      assert.ok(slugs.includes('project-last-run-game'));
     });
 
-    test('project-nexus-ai contains required metrics (+44% ARR Growth, -35% Churn, 120k MAU)', () => {
-      const nexus = projectsData.find((p) => p.slug === 'project-nexus-ai');
-      assert.ok(nexus);
-      const metricValues = nexus.metrics.map((m) => m.value);
-      assert.ok(metricValues.some((v) => v.includes('+44%')));
-      assert.ok(metricValues.some((v) => v.includes('-35%')));
-      assert.ok(metricValues.some((v) => v.includes('120k')));
+    test('project-kamada-finlit contains required metrics (4 Members, 100% Mapped, 3x Velocity)', () => {
+      const kamada = projectsData.find((p) => p.slug === 'project-kamada-finlit');
+      assert.ok(kamada);
+      const metricValues = kamada.metrics.map((m) => m.value);
+      assert.ok(metricValues.some((v) => v.includes('4 Members')));
+      assert.ok(metricValues.some((v) => v.includes('100% Mapped')));
+      assert.ok(metricValues.some((v) => v.includes('3x Velocity')));
     });
 
-    test('project-pulse-analytics contains required metrics (2.4x Query Velocity, 99.98% Uptime, $1.8M Saved)', () => {
-      const pulse = projectsData.find((p) => p.slug === 'project-pulse-analytics');
-      assert.ok(pulse);
-      const metricValues = pulse.metrics.map((m) => m.value);
-      assert.ok(metricValues.some((v) => v.includes('2.4x')));
-      assert.ok(metricValues.some((v) => v.includes('99.98%')));
-      assert.ok(metricValues.some((v) => v.includes('$1.8M Saved')));
+    test('project-alt-credit-scoring contains required metrics (40,000 Records, 4 ML Pipelines, Disparate Impact)', () => {
+      const altCredit = projectsData.find((p) => p.slug === 'project-alt-credit-scoring');
+      assert.ok(altCredit);
+      const metricValues = altCredit.metrics.map((m) => m.value);
+      assert.ok(metricValues.some((v) => v.includes('40,000 Records')));
+      assert.ok(metricValues.some((v) => v.includes('4 ML Pipelines')));
+      assert.ok(metricValues.some((v) => v.includes('Disparate Impact')));
     });
 
-    test('project-hyperion-mobile contains required metrics (4.9★ App Rating, +68% Conversion, 4.2M Transactions)', () => {
-      const hyperion = projectsData.find((p) => p.slug === 'project-hyperion-mobile');
-      assert.ok(hyperion);
-      const metricValues = hyperion.metrics.map((m) => m.value);
-      assert.ok(metricValues.some((v) => v.includes('4.9★')));
-      assert.ok(metricValues.some((v) => v.includes('+68%')));
-      assert.ok(metricValues.some((v) => v.includes('4.2M')));
+    test('project-salary-confidence contains required metrics (Rolling-Window, Structural Checks, Explainable AI)', () => {
+      const salary = projectsData.find((p) => p.slug === 'project-salary-confidence');
+      assert.ok(salary);
+      const metricValues = salary.metrics.map((m) => m.value);
+      assert.ok(metricValues.some((v) => v.includes('Rolling-Window')));
+      assert.ok(metricValues.some((v) => v.includes('Structural Checks')));
+      assert.ok(metricValues.some((v) => v.includes('Explainable AI')));
     });
 
     test('each project satisfies deep-dive case study contract and links', () => {
@@ -125,8 +127,8 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
     });
 
     test('helper functions getProjectBySlug and getFeaturedProjects work correctly', () => {
-      const p1 = getProjectBySlug('project-nexus-ai');
-      assert.strictEqual(p1?.slug, 'project-nexus-ai');
+      const p1 = getProjectBySlug('project-kamada-finlit');
+      assert.strictEqual(p1?.slug, 'project-kamada-finlit');
       assert.strictEqual(getProjectBySlug('non-existent'), undefined);
 
       const featured = getFeaturedProjects();
@@ -144,9 +146,9 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
     });
 
     test('timeline entries define the 3 specified executive roles', () => {
-      assert.strictEqual(careerData[0].role, 'Principal Product Manager');
-      assert.strictEqual(careerData[1].role, 'Senior PM - Growth & Platforms');
-      assert.strictEqual(careerData[2].role, 'Technical Product Manager');
+      assert.strictEqual(careerData[0].role, 'Product Management Intern');
+      assert.strictEqual(careerData[1].role, 'Product Management Fellow — GenAI & Agentic AI');
+      assert.strictEqual(careerData[2].role, 'Independent Product & Market Systems Builder');
     });
 
     test('each entry has metric-driven bullets and skill pill tags', () => {
@@ -176,8 +178,8 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
 
     test('fetchProjects() falls back smoothly to projectsData', async () => {
       const projects = await fetchProjects();
-      assert.strictEqual(projects.length, 3);
-      assert.strictEqual(projects[0].slug, 'project-nexus-ai');
+      assert.strictEqual(projects.length, 5);
+      assert.strictEqual(projects[0].slug, 'project-kamada-finlit');
     });
 
     test('fetchFeaturedProjects() falls back smoothly to getFeaturedProjects()', async () => {
@@ -187,9 +189,9 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
     });
 
     test('fetchProjectBySlug() falls back smoothly to static project', async () => {
-      const project = await fetchProjectBySlug('project-nexus-ai');
+      const project = await fetchProjectBySlug('project-kamada-finlit');
       assert.ok(project);
-      assert.strictEqual(project?.slug, 'project-nexus-ai');
+      assert.strictEqual(project?.slug, 'project-kamada-finlit');
 
       const notFound = await fetchProjectBySlug('non-existent');
       assert.strictEqual(notFound, undefined);
@@ -198,7 +200,7 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
     test('fetchCareerTimeline() falls back smoothly to careerData', async () => {
       const timeline = await fetchCareerTimeline();
       assert.strictEqual(timeline.length, 3);
-      assert.strictEqual(timeline[0].role, 'Principal Product Manager');
+      assert.strictEqual(timeline[0].role, 'Product Management Intern');
     });
   });
 });
