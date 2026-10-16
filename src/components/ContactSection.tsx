@@ -103,15 +103,15 @@ export function ContactSection({
               <>
                 Available for{' '}
                 <strong className="text-white font-bold">
-                  Executive Product Leadership
+                  Product Management roles
                 </strong>
                 ,{' '}
                 <strong className="text-white font-bold">
-                  Advisory &amp; Board Roles
+                  AI Products &amp; Systems
                 </strong>
-                , and high-stakes{' '}
+                , and high-impact{' '}
                 <strong className="text-white font-bold">
-                  0-to-1 Product Strategy
+                  0-to-1 Product Development
                 </strong>
                 . Direct communication channels monitored daily.
               </>
@@ -121,30 +121,32 @@ export function ContactSection({
 
         {/* 2-Column Split: Image Tile Left, Direct Channels Right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
-          {/* Left Column: Square image placeholder tile with pinned back-to-top button */}
+          {/* Left Column: Profile Photo & Studio Tile with pinned back-to-top button */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={revealTransition}
-            className="relative aspect-square w-full rounded-card border border-dark bg-[#181818] overflow-hidden flex flex-col items-center justify-center p-8 select-none group shadow-2xl"
+            className="relative aspect-square w-full rounded-card border border-dark bg-[#181818] overflow-hidden flex flex-col justify-between p-6 sm:p-8 select-none group shadow-2xl"
           >
+            {/* Background Profile Photo Image */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/profile/chirag-goyal.jpg"
+              alt="Chirag Goyal Profile Image"
+              className="absolute inset-0 w-full h-full object-cover object-top grayscale contrast-115 opacity-65 group-hover:opacity-85 transition-opacity duration-300"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
+
             {/* Viewfinder corner brackets */}
             <div className="absolute top-6 left-6 w-4 h-4 border-t border-l border-white/20 pointer-events-none" />
             <div className="absolute top-6 right-6 w-4 h-4 border-t border-r border-white/20 pointer-events-none" />
             <div className="absolute bottom-6 right-6 w-4 h-4 border-b border-r border-white/20 pointer-events-none" />
 
-            {/* Technical grid lines */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/[0.03] via-transparent to-transparent pointer-events-none" />
-
-            {/* Center Decorative Watermark Text */}
-            <div className="flex flex-col items-center text-center z-0" aria-hidden="true">
-              <span className="font-mono text-2xl sm:text-3xl tracking-[0.3em] text-white/20 uppercase font-light mb-2">
-                Image
-              </span>
-              <span className="font-mono text-xs text-secondary/40 uppercase tracking-widest">
-                EXECUTIVE STUDIO PROFILE // 1:1 TILE
-              </span>
+            {/* Top Status & Location Badge */}
+            <div className="relative z-10 flex items-center gap-2 px-3 py-1.5 rounded bg-black/80 backdrop-blur-sm border border-white/10 font-mono text-[11px] text-white/90 self-start">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span>DELHI, IN // OPEN TO ROLES</span>
             </div>
 
             {/* Pinned Accent Back-To-Top Button at bottom-left corner with 2px radius */}
@@ -152,7 +154,7 @@ export function ContactSection({
               type="button"
               onClick={handleBackToTop}
               aria-label="Back to top"
-              className="absolute bottom-6 left-6 z-10 inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-white font-mono text-xs font-semibold uppercase tracking-wider rounded-card shadow-xl hover:bg-accent/90 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-all cursor-pointer group/btn"
+              className="relative z-10 inline-flex items-center gap-2 px-4 py-2.5 bg-accent text-white font-mono text-xs font-semibold uppercase tracking-wider rounded-card shadow-xl hover:bg-accent/90 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-all cursor-pointer group/btn self-start"
             >
               <ArrowUp className="w-3.5 h-3.5 group-hover/btn:-translate-y-0.5 transition-transform" />
               <span>Back to top</span>

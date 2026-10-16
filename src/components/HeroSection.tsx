@@ -57,7 +57,7 @@ export function HeroSection({ data = profileData }: HeroSectionProps) {
           className="font-mono text-xs text-secondary tracking-widest uppercase mb-4 flex flex-wrap items-center gap-2"
         >
           <span className="text-accent">{'//'}</span>
-          <span>SIGNAL BLACK EXECUTIVE</span>
+          <span>PORTFOLIO</span>
           <span className="text-secondary/40">—</span>
           <span className="text-white/80">{data.role.toUpperCase()}</span>
         </motion.div>

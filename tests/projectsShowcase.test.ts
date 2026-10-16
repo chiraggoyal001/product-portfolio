@@ -462,7 +462,7 @@ describe('Task 7: Live Experiment / Project Showcase & Case Study Drawer', () =>
         `Header must render timeline: ${project.timeline}`
       );
       assert.ok(
-        html.includes('Role') && html.includes('Lead Product Manager'),
+        html.includes('Role') && html.includes('Product Manager'),
         'Header must render role'
       );
       assert.ok(

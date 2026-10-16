@@ -38,7 +38,7 @@ export function CaseStudyDrawer({
   isOpen,
   onClose,
   project,
-  role = 'Lead Product Manager',
+  role = 'Product Manager',
 }: CaseStudyDrawerProps) {
   const panelRef = useRef<HTMLElement>(null);
 

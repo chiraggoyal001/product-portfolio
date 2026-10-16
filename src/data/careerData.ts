@@ -39,7 +39,7 @@ export const careerData: ExperienceItem[] = [
     period: 'Dec 2025 — Jun 2026',
     duration: '6 mos',
     summary:
-      'Intensive executive product management fellowship focused on GenAI architectures, agentic workflows, PRD authoring, and rapid prototyping.',
+      'Intensive product management fellowship focused on GenAI architectures, agentic workflows, PRD authoring, and rapid prototyping.',
     metricBullets: [
       'Led 4-person capstone squad building Kamada, an AI-assisted financial literacy platform; authored comprehensive PRD, shaped user journeys, and organized live community webinars.',
       'Researched and engineered Alternative Credit Scoring Streamlit MVP evaluating 40,000 synthetic records across 4 ML model pipelines with disparate-impact fairness analytics.',

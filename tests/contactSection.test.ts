@@ -190,25 +190,25 @@ describe('Task 8: Contact Band, Footer & Page Integration', () => {
       );
     });
 
-    test('renders ticker items in DM Mono uppercase with vermilion separators', () => {
+    test('renders clean attribution strip with DM Mono typography and vermilion indicator', () => {
       assert.ok(
         html.includes('font-mono'),
-        'Marquee items must use DM Mono font'
+        'Footer attribution must use DM Mono font'
       );
       assert.ok(
-        html.includes('text-accent'),
-        'Marquee separators must use vermilion accent color'
+        html.includes('bg-accent'),
+        'Footer must feature vermilion accent indicator'
       );
       assert.ok(
-        html.includes('PRODUCT MANAGEMENT') || html.includes('EXECUTIVE LEADERSHIP'),
-        'Marquee must render executive PM capabilities'
+        html.includes('Product Portfolio'),
+        'Footer must display Product Portfolio tag'
       );
     });
 
-    test('renders copyright and executive name/role attribution strip', () => {
+    test('renders copyright and PM name/role attribution strip', () => {
       assert.ok(
         html.includes(escapeHtml(profileData.name)),
-        'Must include executive name in footer'
+        'Must include PM name in footer'
       );
       const currentYear = new Date().getFullYear().toString();
       assert.ok(
@@ -221,7 +221,7 @@ describe('Task 8: Contact Band, Footer & Page Integration', () => {
   describe('Home Page integration (src/app/page.tsx)', () => {
     const html = renderToStaticMarkup(React.createElement(Home));
 
-    test('mounts all portfolio sections in canonical Signal Black Executive sequence', () => {
+    test('mounts all portfolio sections in canonical sequence', () => {
       const heroIdx = html.indexOf('id="hero"');
       const introIdx = html.indexOf('id="intro"');
       const expertiseIdx = html.indexOf('id="expertise"');
@@ -248,7 +248,7 @@ describe('Task 8: Contact Band, Footer & Page Integration', () => {
 
     test('mounts FooterMarquee at the bottom of the page', () => {
       assert.ok(
-        html.includes('PRODUCT MANAGEMENT') || html.includes('EXECUTIVE LEADERSHIP'),
+        html.includes(escapeHtml(profileData.name)),
         'FooterMarquee must be mounted in Home page'
       );
     });

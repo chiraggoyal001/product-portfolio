@@ -114,7 +114,7 @@ export const profileData: ProfileData = {
       indexNumber: '05',
       title: 'Cross-Functional Orchestration',
       description:
-        'Aligning engineering, design, operations squads, and executive stakeholders to ship production-ready tools on schedule.',
+        'Aligning engineering, design, operations squads, and cross-functional stakeholders to ship production-ready tools on schedule.',
       coreCompetencies: [
         'Robotics Ops Sprint Planning',
         'Engineering & Design Alignment',

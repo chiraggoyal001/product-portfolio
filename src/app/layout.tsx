@@ -16,9 +16,9 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Executive Product Manager | Signal Black Portfolio",
+  title: "Chirag Goyal | Product Manager Portfolio",
   description:
-    "Dark-mode-default executive portfolio for a senior Product Manager, built on Signal Black Executive design tokens.",
+    "Product Manager portfolio specializing in AI products, internal tools, rapid prototyping, and operational systems.",
 };
 
 export default function RootLayout({

@@ -19,40 +19,18 @@ const defaultMarqueeItems = [
 ];
 
 export function FooterMarquee({
-  items = defaultMarqueeItems,
+  items,
   name = profileData.name,
   role = profileData.role,
 }: FooterMarqueeProps) {
   const currentYear = new Date().getFullYear();
 
-  // Duplicate items array for infinite loop
-  const tickerItems = [...items, ...items];
-
   return (
     <footer
-      aria-label="Footer Marquee and Attribution"
+      aria-label="Footer and Attribution"
       className="relative w-full bg-[#0c0c0c] border-t border-dark overflow-hidden"
     >
-      {/* 1. Scrolling Horizontal Marquee Strip (decorative, hidden from screen readers) */}
-      <div
-        aria-hidden="true"
-        className="py-4 border-b border-dark/50 overflow-hidden relative flex items-center group select-none"
-      >
-        <div className="animate-hf-marquee motion-reduce:animate-none flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
-          {tickerItems.map((item, idx) => (
-            <div key={idx} className="inline-flex items-center mx-6 sm:mx-8">
-              <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-white/70">
-                {item}
-              </span>
-              <span className="text-accent text-sm font-mono ml-6 sm:ml-8">
-                {'//'}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 2. Executive Attribution Strip (selectable text) */}
+      {/* Portfolio Attribution & Copyright Strip */}
       <div className="max-w-[1200px] mx-auto px-6 sm:px-10 lg:px-16 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         {/* Name, Role & Year */}
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 font-mono text-xs text-secondary">
@@ -66,7 +44,7 @@ export function FooterMarquee({
         {/* System & Architecture Tag */}
         <div className="font-mono text-[11px] text-secondary uppercase tracking-widest flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
-          <span>Signal Black Executive System</span>
+          <span>Product Portfolio</span>
         </div>
       </div>
     </footer>

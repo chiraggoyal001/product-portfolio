@@ -108,7 +108,7 @@ export function AboutSection({
                 /* Stylistic Executive Silhouette Photography Frame */
                 <div
                   className="relative w-full h-full flex flex-col justify-between p-6 bg-gradient-to-b from-[#1c1c1c] via-[#0f0f0f] to-black grayscale"
-                  aria-label="Executive Portrait Silhouette"
+                  aria-label="Portrait Silhouette"
                 >
                   {/* Viewfinder Frame Meta */}
                   <div className="flex items-center justify-between font-mono text-[11px] text-white/50 tracking-wider uppercase z-10">
