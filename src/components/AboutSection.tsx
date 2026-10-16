@@ -61,6 +61,7 @@ export function AboutSection({
   const name = data?.name ?? profileData.name;
   const isAvailable = status?.available ?? true;
 
+  const effectivePortraitUrl = portraitUrl ?? about?.portraitUrl ?? '/images/profile/chirag-goyal.jpg';
   const statusLine = [status?.location, status?.text].filter(Boolean).join(' • ');
 
   return (
@@ -94,10 +95,10 @@ export function AboutSection({
           >
             {/* Note: Grayscale is applied to inner portrait contents only, so the overlaid vermilion badge is NOT desaturated */}
             <div className="relative w-full aspect-[4/5] rounded-card overflow-hidden border border-light bg-black shadow-lg">
-              {portraitUrl ? (
+              {effectivePortraitUrl ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
-                  src={portraitUrl}
+                  src={effectivePortraitUrl}
                   alt={name}
                   loading="lazy"
                   decoding="async"

@@ -29,6 +29,7 @@ export const profileData: ProfileData = {
       text: 'Open to Opportunities',
       location: 'Delhi, India',
     },
+    portraitUrl: '/images/profile/chirag-goyal.jpg',
   },
   directChannels: [
     {

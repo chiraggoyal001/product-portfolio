@@ -261,17 +261,56 @@ export function ProjectsShowcase({
             transition={revealTransition}
             className="lg:col-span-6 xl:col-span-6 w-full"
           >
-            <div className="relative w-full aspect-video rounded-card border border-dark overflow-hidden bg-black shadow-2xl">
-              <ShowcaseVideoPlayer
-                url={currentProject.videoUrl}
-                title={currentProject.title}
-              />
+            <div className="relative w-full aspect-video rounded-card border border-dark overflow-hidden bg-black shadow-2xl group">
+              {currentProject.thumbnailPlaceholder ? (
+                <div className="relative w-full h-full">
+                  {/* Project Screenshot Image */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={currentProject.thumbnailPlaceholder}
+                    alt={`${currentProject.title} preview`}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Subtle vignette gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+
+                  {/* Viewfinder corner brackets */}
+                  <div className="absolute top-4 left-4 w-3 h-3 border-t border-l border-white/30 pointer-events-none" />
+                  <div className="absolute top-4 right-4 w-3 h-3 border-t border-r border-white/30 pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 w-3 h-3 border-b border-l border-white/30 pointer-events-none" />
+                  <div className="absolute bottom-4 right-4 w-3 h-3 border-b border-r border-white/30 pointer-events-none" />
+
+                  {/* Top Eyebrow Tag */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between font-mono text-[11px] text-white/70 tracking-wider uppercase pointer-events-none pl-4 pr-4">
+                    <span>{'// PROJECT PREVIEW'}</span>
+                    <span className="truncate max-w-[200px] text-right">{currentProject.category.toUpperCase()}</span>
+                  </div>
+
+                  {/* Floating Action Badge to Launch Live Demo */}
+                  {currentProject.liveUrl && (
+                    <a
+                      href={currentProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute bottom-4 right-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pill bg-black/80 hover:bg-accent border border-white/20 text-white font-mono text-xs tracking-wider uppercase transition-colors shadow-lg z-10"
+                    >
+                      <span>Live Demo</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                </div>
+              ) : (
+                <ShowcaseVideoPlayer
+                  url={currentProject.videoUrl}
+                  title={currentProject.title}
+                />
+              )}
             </div>
           </motion.div>
         </div>
 
         {/* Thumbnail / Project Selector Tabs Strip (Bottom) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 pt-10 border-t border-dark">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-16 pt-10 border-t border-dark">
           {projectList.map((project, idx) => {
             const isSelected = idx === selectedIndex;
             return (
@@ -280,30 +319,44 @@ export function ProjectsShowcase({
                 type="button"
                 aria-pressed={isSelected}
                 onClick={() => setSelectedIndex(idx)}
-                className={`text-left p-5 rounded-card border transition-all duration-200 cursor-pointer ${
+                className={`text-left p-4 rounded-card border transition-all duration-200 cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? 'border-accent bg-white/[0.05] shadow-lg'
                     : 'border-dark bg-transparent hover:border-white/30 hover:bg-white/[0.02]'
                 }`}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span
-                    className={`font-mono text-xs font-bold tracking-widest ${
-                      isSelected ? 'text-accent' : 'text-secondary'
-                    }`}
-                  >
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  {isSelected && (
-                    <span className="font-mono text-[10px] uppercase text-accent tracking-wider font-semibold">
-                      • CURRENT
-                    </span>
+                <div>
+                  {project.thumbnailPlaceholder && (
+                    <div className="relative w-full aspect-video rounded overflow-hidden mb-3 border border-dark bg-black/40">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.thumbnailPlaceholder}
+                        alt={project.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </div>
                   )}
+
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span
+                      className={`font-mono text-xs font-bold tracking-widest ${
+                        isSelected ? 'text-accent' : 'text-secondary'
+                      }`}
+                    >
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    {isSelected && (
+                      <span className="font-mono text-[10px] uppercase text-accent tracking-wider font-semibold">
+                        • ACTIVE
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-space font-bold text-base text-white mb-1 line-clamp-1">
+                    {project.title}
+                  </h3>
                 </div>
-                <h3 className="font-space font-bold text-lg text-white mb-1">
-                  {project.title}
-                </h3>
-                <p className="font-mono text-xs text-secondary uppercase tracking-wider truncate">
+                <p className="font-mono text-[11px] text-secondary uppercase tracking-wider truncate mt-2">
                   {project.category}
                 </p>
               </button>

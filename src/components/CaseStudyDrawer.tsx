@@ -160,6 +160,23 @@ export function CaseStudyDrawer({
                 </div>
               </header>
 
+              {/* Project Visual Interface Preview */}
+              {project.thumbnailPlaceholder && (
+                <div className="relative aspect-video w-full rounded-card overflow-hidden border border-dark bg-black shadow-lg">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.thumbnailPlaceholder}
+                    alt={`${project.title} Interface Preview`}
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 left-3 bg-black/85 backdrop-blur-sm border border-white/10 px-2.5 py-1 rounded text-[10px] font-mono tracking-wider text-accent uppercase flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                    <span>SYSTEM PREVIEW</span>
+                  </div>
+                </div>
+              )}
+
               {/* 2. Metrics Highlight Bar: Grid of cards with label, value, change */}
               <section aria-labelledby="metrics-heading">
                 <h3

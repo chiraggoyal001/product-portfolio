@@ -96,6 +96,7 @@ export interface ProfileData {
       text: string;
       location: string;
     };
+    portraitUrl?: string;
   };
   directChannels: SocialChannel[];
   expertise: ExpertiseItem[];
