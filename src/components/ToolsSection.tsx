@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -66,13 +66,13 @@ export function ToolsSection({
           </motion.h2>
         </div>
 
-        {/* Pill Badges Grid matching Image 1 */}
+        {/* Pill Badges Grid */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ ...revealTransition, delay: 0.15 }}
-          className="flex flex-wrap gap-2.5 sm:gap-3 mb-16 md:mb-20"
+          className="flex flex-wrap gap-2.5 sm:gap-3"
         >
           {tools.map((tool) => (
             <span
@@ -87,62 +87,6 @@ export function ToolsSection({
             </span>
           ))}
         </motion.div>
-
-        {/* Bottom Metadata Split Panels: Languages & Education matching Image 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 pt-4">
-          {/* Languages */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ ...revealTransition, delay: 0.2 }}
-          >
-            <div className="font-mono text-xs uppercase tracking-wider text-secondary mb-4 flex items-center gap-2">
-              <span className="text-accent font-semibold">{'//'}</span>
-              <span>LANGUAGES</span>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {languages.map((item) => (
-                <div
-                  key={item.language}
-                  className="border border-dark bg-white/[0.02] rounded-card px-4 py-3 flex items-center gap-2.5 font-mono text-xs sm:text-sm"
-                >
-                  <strong className="text-white font-semibold">{item.language}</strong>
-                  <span className="text-secondary">{item.proficiency}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Education */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ ...revealTransition, delay: 0.25 }}
-          >
-            <div className="font-mono text-xs uppercase tracking-wider text-secondary mb-4 flex items-center gap-2">
-              <span className="text-accent font-semibold">{'//'}</span>
-              <span>EDUCATION</span>
-            </div>
-            <div className="flex flex-col gap-3">
-              {education.map((item) => (
-                <div
-                  key={item.institution}
-                  className="border border-dark bg-white/[0.02] rounded-card px-5 py-3.5 font-mono text-xs sm:text-sm flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
-                >
-                  <div className="flex flex-col">
-                    <strong className="text-white font-semibold">{item.institution}</strong>
-                    <span className="text-secondary text-xs mt-0.5">{item.degree}</span>
-                  </div>
-                  {item.period && (
-                    <span className="text-accent text-xs shrink-0 font-medium">{item.period}</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
       </div>
     </section>
   );

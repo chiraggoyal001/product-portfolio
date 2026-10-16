@@ -1,4 +1,4 @@
-﻿import assert from 'node:assert';
+import assert from 'node:assert';
 import { test, describe } from 'node:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -52,13 +52,23 @@ describe('ToolsSection component (src/components/ToolsSection.tsx)', () => {
     );
   });
 
-  test('renders tool badges with vermilion AI highlights matching Image 1', () => {
+  test('renders tool badges with vermilion AI highlights', () => {
     const tools = profileData.tools ?? [];
     assert.ok(tools.length > 0, 'Must have tools defined in profileData');
 
     tools.forEach((tool) => {
       assert.ok(html.includes(tool.name), `Must render tool pill: ${tool.name}`);
     });
+
+    // Verify addition of Cursor, Canva, Lucid, CapCut
+    assert.ok(html.includes('Cursor'), 'Must include Cursor');
+    assert.ok(html.includes('Canva'), 'Must include Canva');
+    assert.ok(html.includes('Lucid'), 'Must include Lucid');
+    assert.ok(html.includes('CapCut'), 'Must include CapCut');
+
+    // Verify removal of Trello and Asana
+    assert.ok(!html.includes('Trello'), 'Must not include Trello');
+    assert.ok(!html.includes('Asana'), 'Must not include Asana');
 
     // Check highlighted AI tools style
     assert.ok(
@@ -67,26 +77,9 @@ describe('ToolsSection component (src/components/ToolsSection.tsx)', () => {
     );
   });
 
-  test('renders LANGUAGES metadata panel matching Image 1', () => {
-    assert.ok(html.includes('LANGUAGES'), 'Must render LANGUAGES header');
-    const languages = profileData.languages ?? [];
-    assert.ok(languages.length > 0, 'Must have languages defined');
-
-    languages.forEach((item) => {
-      assert.ok(html.includes(item.language), `Must render language: ${item.language}`);
-      assert.ok(html.includes(item.proficiency), `Must render proficiency: ${item.proficiency}`);
-    });
-  });
-
-  test('renders EDUCATION metadata panel matching Image 1', () => {
-    assert.ok(html.includes('EDUCATION'), 'Must render EDUCATION header');
-    const education = profileData.education ?? [];
-    assert.ok(education.length > 0, 'Must have education items defined');
-
-    education.forEach((item) => {
-      assert.ok(html.includes(item.institution), `Must render institution: ${item.institution}`);
-      assert.ok(html.includes(item.degree), `Must render degree: ${item.degree}`);
-    });
+  test('does not render bottom languages and education panels in tools section', () => {
+    assert.ok(!html.includes('// LANGUAGES') && !html.includes('LANGUAGES'), 'Must not render LANGUAGES panel');
+    assert.ok(!html.includes('// EDUCATION') && !html.includes('EDUCATION'), 'Must not render EDUCATION panel');
   });
 
   test('mounts GradualBlur at top boundary for Projects -> Tools section change', () => {
@@ -94,17 +87,13 @@ describe('ToolsSection component (src/components/ToolsSection.tsx)', () => {
     assert.ok(html.includes('to top'), 'ToolsSection must blur top boundary');
   });
 
-  test('supports custom tools, languages, and education prop injection', () => {
+  test('supports custom tools prop injection', () => {
     const customHtml = renderToStaticMarkup(
       React.createElement(ToolsSection, {
         tools: [{ name: 'CustomTool', isHighlighted: true }],
-        languages: [{ language: 'Spanish', proficiency: 'Conversational' }],
-        education: [{ institution: 'Stanford', degree: 'CS Course', period: '2024' }],
       })
     );
 
     assert.ok(customHtml.includes('CustomTool'), 'Must render custom tool');
-    assert.ok(customHtml.includes('Spanish'), 'Must render custom language');
-    assert.ok(customHtml.includes('Stanford'), 'Must render custom education');
   });
 });
