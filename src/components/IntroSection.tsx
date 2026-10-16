@@ -22,7 +22,7 @@ export function IntroSection({ data = profileData }: IntroSectionProps) {
     <section
       id="intro"
       aria-label="Editorial Intro Statement"
-      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-20"
+      className="relative w-full bg-background text-primary border-t border-dark py-[100px] px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-20"
     >
       {/* Gradual Optical Blur across Hero -> Intro section change */}
       <GradualBlur
@@ -48,19 +48,27 @@ export function IntroSection({ data = profileData }: IntroSectionProps) {
           <span>INTRO</span>
         </motion.div>
 
-        {/* Multi-line display-lg statement */}
+        {/* Multi-line display statement matching Image 3 rhythm */}
         <motion.h2
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ ...revealTransition, delay: 0.1 }}
-          className="font-space font-bold text-[44px] md:text-[84px] lg:text-[112px] xl:text-[132px] leading-[0.92] tracking-tighter-display text-white"
+          className="font-space font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[88px] leading-[0.92] tracking-tighter-display text-white"
         >
           <span className="text-white">{statement.whiteTextPre}</span>
           <span className="text-accent">{statement.accentText1}</span>
           <span className="text-white">{statement.whiteTextMid}</span>
           <span className="text-accent">{statement.accentText2}</span>
           <span className="text-white">{statement.whiteTextPost}</span>
+          {statement.line2Accent1 && (
+            <span className="block mt-4 sm:mt-6">
+              <span className="text-accent">{statement.line2Accent1}</span>
+              <span className="text-white">{statement.line2WhiteMid}</span>
+              <span className="text-accent">{statement.line2Accent2}</span>
+              <span className="text-white">{statement.line2WhitePost}</span>
+            </span>
+          )}
         </motion.h2>
       </div>
     </section>
@@ -68,3 +76,4 @@ export function IntroSection({ data = profileData }: IntroSectionProps) {
 }
 
 export default IntroSection;
+

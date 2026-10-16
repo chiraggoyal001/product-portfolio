@@ -52,8 +52,25 @@ export interface ExperienceItem {
 export interface ExpertiseItem {
   indexNumber: string;
   title: string;
-  description: string;
-  coreCompetencies: string[];
+  description?: string;
+  coreCompetencies?: string[];
+}
+
+export interface ToolItem {
+  name: string;
+  isHighlighted?: boolean;
+  category?: 'ai' | 'product' | 'ops' | 'technical';
+}
+
+export interface LanguageItem {
+  language: string;
+  proficiency: string;
+}
+
+export interface EducationItem {
+  degree: string;
+  institution: string;
+  period?: string;
 }
 
 export type SocialChannelType =
@@ -81,6 +98,10 @@ export interface ProfileData {
     whiteTextMid: string;
     accentText2: string;
     whiteTextPost: string;
+    line2Accent1?: string;
+    line2WhiteMid?: string;
+    line2Accent2?: string;
+    line2WhitePost?: string;
   };
   honors: string[];
   about: {
@@ -100,4 +121,8 @@ export interface ProfileData {
   };
   directChannels: SocialChannel[];
   expertise: ExpertiseItem[];
+  tools?: ToolItem[];
+  languages?: LanguageItem[];
+  education?: EducationItem[];
 }
+

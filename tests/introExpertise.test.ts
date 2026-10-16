@@ -59,8 +59,9 @@ describe('Task 4: Editorial Intro Statement & PM Expertise Grid', () => {
 
     test('signature colorization: mixes crisp white text and rationed vermilion accent words', () => {
       // Must contain white and accent text runs from profileData.introStatement
+      const escapedPre = profileData.introStatement.whiteTextPre.trim().replace(/'/g, '&#x27;');
       assert.ok(
-        html.includes(profileData.introStatement.whiteTextPre.trim()),
+        html.includes(escapedPre) || html.includes(profileData.introStatement.whiteTextPre.trim()),
         'Must render initial white text'
       );
       assert.ok(
@@ -152,35 +153,24 @@ describe('Task 4: Editorial Intro Statement & PM Expertise Grid', () => {
       );
     });
 
-    test('renders all 6 core PM expertise disciplines from profileData.expertise', () => {
-      assert.strictEqual(profileData.expertise.length, 6, 'Must contain 6 expertise disciplines');
+    test('renders all 16 specialisations from profileData.expertise matching Image 2', () => {
+      assert.strictEqual(profileData.expertise.length, 16, 'Must contain 16 expertise disciplines');
       profileData.expertise.forEach((item) => {
         const escapedTitle = item.title.replace(/&/g, '&amp;');
-        const escapedDesc = item.description.replace(/&/g, '&amp;');
         assert.ok(html.includes(escapedTitle), `Must render discipline title: ${item.title}`);
-        assert.ok(html.includes(escapedDesc), `Must render description for: ${item.title}`);
+        assert.ok(html.includes(item.indexNumber), `Must render index numeral: ${item.indexNumber}`);
       });
     });
 
-    test('renders 2-digit DM Mono index numerals (01..06) in vermilion accent', () => {
+    test('renders 2-digit DM Mono index numerals (01..16) in muted mono with hover accent', () => {
       profileData.expertise.forEach((item) => {
         assert.ok(html.includes(item.indexNumber), `Must render index numeral: ${item.indexNumber}`);
       });
-      assert.ok(html.includes('text-accent'), 'Index numerals must be in vermilion accent');
-      assert.ok(html.includes('font-mono'), 'Index numerals must use DM Mono font');
-    });
-
-    test('renders core competencies checklist / pills for each discipline', () => {
-      profileData.expertise.forEach((item) => {
-        item.coreCompetencies.forEach((comp) => {
-          const escapedComp = comp.replace(/&/g, '&amp;');
-          assert.ok(html.includes(escapedComp), `Must render competency chip: ${comp}`);
-        });
-      });
       assert.ok(
-        html.includes('rounded-pill') || html.includes('rounded-[9999px]'),
-        'Competency chips must have pill radius'
+        html.includes('group-hover:text-accent') || html.includes('text-accent'),
+        'Index numerals must support vermilion accent'
       );
+      assert.ok(html.includes('font-mono'), 'Index numerals must use DM Mono font');
     });
   });
 

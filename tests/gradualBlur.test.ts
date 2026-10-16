@@ -8,6 +8,7 @@ import { ExpertiseSection } from '../src/components/ExpertiseSection';
 import { AboutSection } from '../src/components/AboutSection';
 import { CareerTimeline } from '../src/components/CareerTimeline';
 import { ProjectsShowcase } from '../src/components/ProjectsShowcase';
+import { ToolsSection } from '../src/components/ToolsSection';
 import { ContactSection } from '../src/components/ContactSection';
 
 describe('GradualBlur Component & Section Change Transitions', () => {
@@ -119,7 +120,14 @@ describe('GradualBlur Component & Section Change Transitions', () => {
       assert.ok(html.includes('to top'), 'ProjectsShowcase must blur top boundary');
     });
 
-    test('ContactSection mounts GradualBlur at top boundary for Projects -> Contact section change', () => {
+    test('ToolsSection mounts GradualBlur at top boundary for Projects -> Tools section change', () => {
+      const html = renderToStaticMarkup(React.createElement(ToolsSection));
+      assert.ok(html.includes('id="tools"'), 'Must render ToolsSection');
+      assert.ok(html.includes('gradual-blur'), 'ToolsSection must contain GradualBlur');
+      assert.ok(html.includes('to top'), 'ToolsSection must blur top boundary');
+    });
+
+    test('ContactSection mounts GradualBlur at top boundary for Tools -> Contact section change', () => {
       const html = renderToStaticMarkup(React.createElement(ContactSection));
       assert.ok(html.includes('id="contact"'), 'Must render ContactSection');
       assert.ok(html.includes('gradual-blur'), 'ContactSection must contain GradualBlur');

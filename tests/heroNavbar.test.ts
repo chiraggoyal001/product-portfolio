@@ -49,17 +49,19 @@ describe('Task 3: Floating Navbar Capsule & Hero Screen', () => {
       assert.ok(customHtml.includes('AM'), 'Must compute initials AM from Alex Mercer');
     });
 
-    test('renders all 5 navigation links pointing to required section anchors', () => {
+    test('renders all 6 navigation links pointing to required section anchors including Tools', () => {
       assert.ok(html.includes('href="#about"'), 'Must link to #about');
       assert.ok(html.includes('href="#expertise"'), 'Must link to #expertise');
       assert.ok(html.includes('href="#career"'), 'Must link to #career');
       assert.ok(html.includes('href="#projects"'), 'Must link to #projects');
+      assert.ok(html.includes('href="#tools"'), 'Must link to #tools');
       assert.ok(html.includes('href="#contact"'), 'Must link to #contact');
 
       assert.ok(html.includes('About'), 'Must contain About label');
       assert.ok(html.includes('Expertise'), 'Must contain Expertise label');
       assert.ok(html.includes('Experience'), 'Must contain Experience label');
       assert.ok(html.includes('Projects'), 'Must contain Projects label');
+      assert.ok(html.includes('Tools'), 'Must contain Tools label');
       assert.ok(html.includes('Contact'), 'Must contain Contact label');
     });
 

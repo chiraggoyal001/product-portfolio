@@ -52,23 +52,26 @@ describe('Task 2: Data Models & Modular Content Layer', () => {
       assert.ok(!types.includes('calendar'));
     });
 
-    test('contains 6 core expertise disciplines with 2-digit indices', () => {
-      assert.strictEqual(profileData.expertise.length, 6);
-      const expectedIndices = ['01', '02', '03', '04', '05', '06'];
+    test('contains 16 core expertise disciplines with 2-digit indices', () => {
+      assert.strictEqual(profileData.expertise.length, 16);
+      const expectedIndices = [
+        '01', '02', '03', '04', '05', '06', '07', '08',
+        '09', '10', '11', '12', '13', '14', '15', '16',
+      ];
       profileData.expertise.forEach((item, index) => {
         assert.strictEqual(item.indexNumber, expectedIndices[index]);
         assert.ok(item.title.length > 0);
-        assert.ok(item.description.length > 0);
-        assert.ok(item.coreCompetencies.length >= 3);
+        assert.ok((item.description ?? '').length > 0);
+        assert.ok((item.coreCompetencies ?? []).length >= 3);
       });
 
       const titles = profileData.expertise.map((item) => item.title);
-      assert.ok(titles.some((t) => t.includes('Product Strategy')));
-      assert.ok(titles.some((t) => t.includes('Customer Discovery')));
-      assert.ok(titles.some((t) => t.includes('Growth & Metric Optimization')));
-      assert.ok(titles.some((t) => t.includes('Technical System Architecture')));
-      assert.ok(titles.some((t) => t.includes('Cross-Functional Orchestration')));
-      assert.ok(titles.some((t) => t.includes('AI & Algorithmic Products')));
+      assert.ok(titles.some((t) => t.includes('Strategy')));
+      assert.ok(titles.some((t) => t.includes('E-Commerce & CRO')));
+      assert.ok(titles.some((t) => t.includes('AI-Driven Workflows')));
+      assert.ok(titles.some((t) => t.includes('Digital Transformation')));
+      assert.ok(titles.some((t) => t.includes('Leadership')));
+      assert.ok(titles.some((t) => t.includes('User Research')));
     });
   });
 

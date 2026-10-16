@@ -228,6 +228,7 @@ describe('Task 8: Contact Band, Footer & Page Integration', () => {
       const aboutIdx = html.indexOf('id="about"');
       const careerIdx = html.indexOf('id="career"');
       const projectsIdx = html.indexOf('id="projects"');
+      const toolsIdx = html.indexOf('id="tools"');
       const contactIdx = html.indexOf('id="contact"');
 
       assert.ok(heroIdx !== -1, 'HeroSection must be mounted');
@@ -236,6 +237,7 @@ describe('Task 8: Contact Band, Footer & Page Integration', () => {
       assert.ok(aboutIdx !== -1, 'AboutSection must be mounted');
       assert.ok(careerIdx !== -1, 'CareerTimeline must be mounted');
       assert.ok(projectsIdx !== -1, 'ProjectsShowcase must be mounted');
+      assert.ok(toolsIdx !== -1, 'ToolsSection must be mounted');
       assert.ok(contactIdx !== -1, 'ContactSection must be mounted');
 
       assert.ok(heroIdx < introIdx, 'Hero must precede Intro');
@@ -243,7 +245,8 @@ describe('Task 8: Contact Band, Footer & Page Integration', () => {
       assert.ok(expertiseIdx < aboutIdx, 'Expertise must precede About');
       assert.ok(aboutIdx < careerIdx, 'About must precede Career');
       assert.ok(careerIdx < projectsIdx, 'Career must precede Projects');
-      assert.ok(projectsIdx < contactIdx, 'Projects must precede Contact');
+      assert.ok(projectsIdx < toolsIdx, 'Projects must precede Tools');
+      assert.ok(toolsIdx < contactIdx, 'Tools must precede Contact');
     });
 
     test('mounts FooterMarquee at the bottom of the page', () => {
@@ -253,8 +256,8 @@ describe('Task 8: Contact Band, Footer & Page Integration', () => {
       );
     });
 
-    test('contains all 5 navbar anchor targets corresponding to navbar capsule links', () => {
-      const anchors = ['#about', '#expertise', '#career', '#projects', '#contact'];
+    test('contains all 6 navbar anchor targets corresponding to navbar capsule links', () => {
+      const anchors = ['#about', '#expertise', '#career', '#projects', '#tools', '#contact'];
       anchors.forEach((anchor) => {
         const id = anchor.replace('#', '');
         assert.ok(
