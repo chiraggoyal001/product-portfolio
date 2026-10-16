@@ -41,14 +41,51 @@ export function NavbarCapsule({
 }: NavbarCapsuleProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
   const monogram = brandMonogram || getInitials(brandName);
   const navRef = useRef<HTMLElement>(null);
 
-  // Scroll listener to strengthen glass opacity and contrast when scrolling over light sections
+  // Scroll listener to track scrolled state and determine the currently active section
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      // Bottom of page check -> activate contact
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 60
+      ) {
+        setActiveSection('contact');
+        return;
+      }
+
+      // Check sections from bottom to top
+      const sectionOrder = [
+        'contact',
+        'tools',
+        'projects',
+        'career',
+        'about',
+        'expertise',
+      ];
+
+      const threshold = 160;
+
+      for (const id of sectionOrder) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= threshold) {
+            setActiveSection(id);
+            return;
+          }
+        }
+      }
+
+      // If above expertise (Hero or Intro), no section link is active
+      setActiveSection('');
     };
+
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -129,17 +166,33 @@ export function NavbarCapsule({
             </span>
           </a>
 
-          {/* Desktop 5 Navigation Links - High Contrast for legibility across all backgrounds */}
-          <div className="hidden md:flex items-center gap-5">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="font-space text-[13px] text-white/80 hover:text-white transition-colors font-medium tracking-tight"
-              >
-                {item.label}
-              </a>
-            ))}
+          {/* Desktop Navigation Links with Active Section Highlight */}
+          <div className="hidden md:flex items-center gap-1 sm:gap-2">
+            {navItems.map((item) => {
+              const sectionId = item.href.replace('#', '');
+              const isActive = activeSection === sectionId;
+
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={`relative px-2.5 py-1 rounded-full font-space text-[13px] tracking-tight transition-all duration-200 ${
+                    isActive
+                      ? 'text-accent font-semibold bg-white/[0.08]'
+                      : 'text-white/75 hover:text-white font-medium hover:bg-white/[0.03]'
+                  }`}
+                  aria-current={isActive ? 'location' : undefined}
+                >
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <span
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent shadow-[0_0_6px_#E84020]"
+                      aria-hidden="true"
+                    />
+                  )}
+                </a>
+              );
+            })}
           </div>
 
           {/* Right CTA Button & Mobile Toggle */}
@@ -180,17 +233,34 @@ export function NavbarCapsule({
                 WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
               }}
             >
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-space text-sm text-white/85 hover:text-white transition-colors py-1.5 px-2 rounded hover:bg-white/5 flex items-center justify-between"
-                >
-                  <span>{item.label}</span>
-                  <span className="font-mono text-xs text-white/50">→</span>
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const sectionId = item.href.replace('#', '');
+                const isActive = activeSection === sectionId;
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`font-space text-sm transition-colors py-2 px-3 rounded-lg flex items-center justify-between ${
+                      isActive
+                        ? 'text-accent bg-accent/10 font-semibold'
+                        : 'text-white/85 hover:text-white hover:bg-white/5 font-medium'
+                    }`}
+                    aria-current={isActive ? 'location' : undefined}
+                  >
+                    <div className="flex items-center gap-2">
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
+                      )}
+                      <span>{item.label}</span>
+                    </div>
+                    <span className={`font-mono text-xs ${isActive ? 'text-accent' : 'text-white/40'}`}>
+                      {isActive ? 'CURRENT' : '→'}
+                    </span>
+                  </a>
+                );
+              })}
             </motion.div>
           )}
         </AnimatePresence>

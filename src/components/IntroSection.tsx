@@ -48,13 +48,13 @@ export function IntroSection({ data = profileData }: IntroSectionProps) {
           <span>INTRO</span>
         </motion.div>
 
-        {/* Multi-line display statement matching Image 3 rhythm */}
+        {/* Multi-line display statement with refined editorial scale */}
         <motion.h2
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ ...revealTransition, delay: 0.1 }}
-          className="font-space font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[88px] leading-[0.92] tracking-tighter-display text-white"
+          className="font-space font-bold text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[48px] leading-[1.18] md:leading-[1.14] tracking-tight text-white max-w-[1100px]"
         >
           <span className="text-white">{statement.whiteTextPre}</span>
           <span className="text-accent">{statement.accentText1}</span>
