@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { profileData } from '@/data/profileData';
 import { ProfileData } from '@/types/portfolio';
+import { GradualBlur } from '@/components/GradualBlur';
 
 export interface ExpertiseSectionProps {
   data?: ProfileData;
@@ -21,8 +22,19 @@ export function ExpertiseSection({ data = profileData }: ExpertiseSectionProps) 
     <section
       id="expertise"
       aria-label="Product Management Expertise"
-      className="relative w-full bg-background text-primary border-t border-dark py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20"
+      className="relative w-full bg-background text-primary border-t border-dark py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20 overflow-hidden"
     >
+      {/* Gradual Optical Blur across Intro -> Expertise section change */}
+      <GradualBlur
+        position="top"
+        height="5rem"
+        strength={2}
+        divCount={6}
+        curve="ease-out"
+        exponential={true}
+        zIndex={10}
+      />
+
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Section Header */}
         <div className="mb-16 md:mb-20">

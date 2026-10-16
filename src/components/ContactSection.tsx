@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { profileData } from '@/data/profileData';
 import { SocialChannel } from '@/types/portfolio';
+import { GradualBlur } from '@/components/GradualBlur';
 
 export interface ContactSectionProps {
   directChannels?: SocialChannel[];
@@ -64,8 +65,19 @@ export function ContactSection({
     <section
       id="contact"
       aria-label="Contact and Engagement"
-      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20 border-t border-dark"
+      className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 scroll-mt-20 border-t border-dark overflow-hidden"
     >
+      {/* Gradual Optical Blur across Projects -> Contact section change */}
+      <GradualBlur
+        position="top"
+        height="5rem"
+        strength={2}
+        divCount={6}
+        curve="ease-out"
+        exponential={true}
+        zIndex={10}
+      />
+
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Section Header: Eyebrow, Headline, Editorial Intro */}
         <div className="max-w-3xl mb-12 md:mb-16">

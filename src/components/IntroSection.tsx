@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { profileData } from '@/data/profileData';
 import { ProfileData } from '@/types/portfolio';
+import { GradualBlur } from '@/components/GradualBlur';
 
 export interface IntroSectionProps {
   data?: ProfileData;
@@ -23,6 +24,17 @@ export function IntroSection({ data = profileData }: IntroSectionProps) {
       aria-label="Editorial Intro Statement"
       className="relative w-full bg-background text-primary py-[100px] px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-20"
     >
+      {/* Gradual Optical Blur across Hero -> Intro section change */}
+      <GradualBlur
+        position="top"
+        height="5rem"
+        strength={2}
+        divCount={6}
+        curve="ease-out"
+        exponential={true}
+        zIndex={10}
+      />
+
       <div className="max-w-[1200px] mx-auto w-full">
         {/* Eyebrow in DM Mono */}
         <motion.div
